@@ -1,0 +1,609 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="IntekodbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Area">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CityID" Type="int" />
+    <Property Name="AreaName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Bonus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerNameSurname" Type="nvarchar" MaxLength="100" />
+    <Property Name="CompanyName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Installer" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProccessType" Type="nvarchar" MaxLength="50" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Payment_Amount" Type="float" />
+    <Property Name="PaymentPaid" Type="float" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="LogDate" Type="datetime" />
+    <Property Name="LogUpdateDate" Type="datetime" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="200" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="Voen" Type="nvarchar" MaxLength="11" />
+  </EntityType>
+  <EntityType Name="BonusFiles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Bonus_ID" Type="int" />
+    <Property Name="FileName" Type="nvarchar" MaxLength="50" />
+    <Property Name="FileData" Type="varbinary(max)" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="FileExtensions" Type="char" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CityName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Contracts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="Elave2FileName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Elave2FileExtensions" Type="char" MaxLength="6" />
+    <Property Name="Elave2Data" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContractNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="NameSurname" Type="nvarchar" MaxLength="50" />
+    <Property Name="CompanyName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Voen" Type="nvarchar" MaxLength="10" />
+    <Property Name="CompanyCode" Type="nvarchar" MaxLength="6" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="CityID" Type="int" />
+    <Property Name="AreaID" Type="int" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="Registration_Date" Type="datetime" />
+    <Property Name="SalesMan" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="LicenceID" Type="uniqueidentifier" />
+    <Property Name="LicenceVersion" Type="nvarchar" MaxLength="8" />
+    <Property Name="LicenceRegister" Type="datetime" />
+    <Property Name="LicenceStatus" Type="bit" />
+    <Property Name="Kassa_Model" Type="int" />
+    <Property Name="KassaSerialNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="KassaVersionNumber" Type="nvarchar" MaxLength="15" />
+    <Property Name="PaymentTypeID" Type="int" />
+    <Property Name="RegistrationPrice" Type="float" />
+    <Property Name="ServicePrice" Type="float" />
+    <Property Name="MposVersion" Type="bit" />
+    <Property Name="ContractFileName" Type="nvarchar" MaxLength="100" />
+    <Property Name="FileExtensions" Type="char" MaxLength="6" />
+    <Property Name="ContractData" Type="varbinary(max)" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="LogDate" Type="datetime" />
+    <Property Name="TypeofCompany" Type="nvarchar" MaxLength="100" />
+    <Property Name="GuessLocation" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Documents">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Extensions" Type="char" MaxLength="5" />
+    <Property Name="Data" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Expenses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Header" Type="nvarchar" MaxLength="50" />
+    <Property Name="UsersID" Type="int" />
+    <Property Name="CategoryID" Type="int" />
+    <Property Name="PaymentTypeID" Type="int" />
+    <Property Name="TotalPaid" Type="float" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="200" />
+    <Property Name="LogDate" Type="datetime" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="ExNo" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Kassalar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="LicenceHistory">
+    <Key>
+      <PropertyRef Name="LicenceID" />
+    </Key>
+    <Property Name="LicenceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="Tarix" Type="datetime" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="LicenceKey" Type="uniqueidentifier" />
+    <Property Name="Description" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="LicenceVersions">
+    <Key>
+      <PropertyRef Name="LicenceVersionNumber" />
+    </Key>
+    <Property Name="LicenceVersionNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Logs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="Operation" Type="nvarchar" MaxLength="300" />
+    <Property Name="Date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="PaymentHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QaimeNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="PaymentTotal" Type="float" />
+    <Property Name="PaymentPaid" Type="float" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Avans" Type="float" />
+    <Property Name="PaymentTypeID" Type="int" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="200" />
+    <Property Name="PaymentID" Type="int" />
+  </EntityType>
+  <EntityType Name="Payments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QaimeNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="OdenecekMebleg" Type="float" />
+    <Property Name="OdenenMebleg" Type="float" />
+    <Property Name="Avans" Type="float" />
+    <Property Name="PaymentTypeID" Type="int" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="LogDate" Type="datetime" />
+    <Property Name="Qaliq" Type="float" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="200" />
+    <Property Name="Voen" Type="nvarchar" MaxLength="20" />
+    <Property Name="OdeyiciAdi" Type="nvarchar" MaxLength="100" />
+    <Property Name="UserID" Type="int" />
+  </EntityType>
+  <EntityType Name="PaymentType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PaymentName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Tarifler">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="Month" Type="nvarchar" MaxLength="15" />
+    <Property Name="OldTarif" Type="float" />
+    <Property Name="NewTarif" Type="float" />
+    <Property Name="Tarix" Type="datetime" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="20" />
+    <Property Name="Adds" Type="bit" />
+    <Property Name="Edit" Type="bit" />
+    <Property Name="Remove" Type="bit" />
+    <Property Name="Show" Type="bit" />
+    <Property Name="LogsData" Type="bit" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="User_ID" />
+    </Key>
+    <Property Name="Username" Type="nvarchar" MaxLength="20" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="NameSurname" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastLoginDate" Type="datetime" />
+    <Property Name="UserRoleID" Type="int" />
+    <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Area_City">
+    <End Role="City" Type="Self.City" Multiplicity="0..1" />
+    <End Role="Area" Type="Self.Area" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Area">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bonus_ToTable">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Bonus" Type="Self.Bonus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="User_ID" />
+      </Principal>
+      <Dependent Role="Bonus">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BonusFiles_Bonus">
+    <End Role="Bonus" Type="Self.Bonus" Multiplicity="1" />
+    <End Role="BonusFiles" Type="Self.BonusFiles" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Bonus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BonusFiles">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customers_Area">
+    <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+    <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customers">
+        <PropertyRef Name="AreaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customers_City">
+    <End Role="City" Type="Self.City" Multiplicity="0..1" />
+    <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customers">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customers_Kassalar">
+    <End Role="Kassalar" Type="Self.Kassalar" Multiplicity="0..1" />
+    <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kassalar">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customers">
+        <PropertyRef Name="Kassa_Model" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customers_PaymentType">
+    <End Role="PaymentType" Type="Self.PaymentType" Multiplicity="0..1" />
+    <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customers">
+        <PropertyRef Name="PaymentTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customers_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="User_ID" />
+      </Principal>
+      <Dependent Role="Customers">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Expenses_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Expenses">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Expenses_PaymentType">
+    <End Role="PaymentType" Type="Self.PaymentType" Multiplicity="0..1" />
+    <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Expenses">
+        <PropertyRef Name="PaymentTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Expenses_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="User_ID" />
+      </Principal>
+      <Dependent Role="Expenses">
+        <PropertyRef Name="UsersID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LicenceHistory_CustomerID">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+    <End Role="LicenceHistory" Type="Self.LicenceHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LicenceHistory">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LicenceHistory_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="LicenceHistory" Type="Self.LicenceHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="User_ID" />
+      </Principal>
+      <Dependent Role="LicenceHistory">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Logs_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Logs" Type="Self.Logs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="User_ID" />
+      </Principal>
+      <Dependent Role="Logs">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PaymentHistory_Customer">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+    <End Role="PaymentHistory" Type="Self.PaymentHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PaymentHistory">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PaymentHistory_Payment">
+    <End Role="Payments" Type="Self.Payments" Multiplicity="0..1" />
+    <End Role="PaymentHistory" Type="Self.PaymentHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Payments">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PaymentHistory">
+        <PropertyRef Name="PaymentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PaymentHistory_PaymentType">
+    <End Role="PaymentType" Type="Self.PaymentType" Multiplicity="0..1" />
+    <End Role="PaymentHistory" Type="Self.PaymentHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PaymentHistory">
+        <PropertyRef Name="PaymentTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_Customer">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+    <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_PaymentType">
+    <End Role="PaymentType" Type="Self.PaymentType" Multiplicity="0..1" />
+    <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="PaymentTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="User_ID" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tarifler_Customer">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+    <End Role="Tarifler" Type="Self.Tarifler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tarifler">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Role">
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserRole">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="UserRoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="ExpensesProcNo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="IntekodbModelStoreContainer">
+    <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Bonus" EntityType="Self.Bonus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BonusFiles" EntityType="Self.BonusFiles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contracts" EntityType="Self.Contracts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Documents" EntityType="Self.Documents" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kassalar" EntityType="Self.Kassalar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LicenceHistory" EntityType="Self.LicenceHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LicenceVersions" EntityType="Self.LicenceVersions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PaymentHistory" EntityType="Self.PaymentHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PaymentType" EntityType="Self.PaymentType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tarifler" EntityType="Self.Tarifler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Area_City" Association="Self.FK_Area_City">
+      <End Role="City" EntitySet="City" />
+      <End Role="Area" EntitySet="Area" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bonus_ToTable" Association="Self.FK_Bonus_ToTable">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Bonus" EntitySet="Bonus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BonusFiles_Bonus" Association="Self.FK_BonusFiles_Bonus">
+      <End Role="Bonus" EntitySet="Bonus" />
+      <End Role="BonusFiles" EntitySet="BonusFiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customers_Area" Association="Self.FK_Customers_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="Customers" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customers_City" Association="Self.FK_Customers_City">
+      <End Role="City" EntitySet="City" />
+      <End Role="Customers" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customers_Kassalar" Association="Self.FK_Customers_Kassalar">
+      <End Role="Kassalar" EntitySet="Kassalar" />
+      <End Role="Customers" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customers_PaymentType" Association="Self.FK_Customers_PaymentType">
+      <End Role="PaymentType" EntitySet="PaymentType" />
+      <End Role="Customers" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customers_Users" Association="Self.FK_Customers_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Customers" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Expenses_Category" Association="Self.FK_Expenses_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Expenses" EntitySet="Expenses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Expenses_PaymentType" Association="Self.FK_Expenses_PaymentType">
+      <End Role="PaymentType" EntitySet="PaymentType" />
+      <End Role="Expenses" EntitySet="Expenses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Expenses_Users" Association="Self.FK_Expenses_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Expenses" EntitySet="Expenses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LicenceHistory_CustomerID" Association="Self.FK_LicenceHistory_CustomerID">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="LicenceHistory" EntitySet="LicenceHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LicenceHistory_Users" Association="Self.FK_LicenceHistory_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="LicenceHistory" EntitySet="LicenceHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Logs_Users" Association="Self.FK_Logs_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Logs" EntitySet="Logs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PaymentHistory_Customer" Association="Self.FK_PaymentHistory_Customer">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="PaymentHistory" EntitySet="PaymentHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PaymentHistory_Payment" Association="Self.FK_PaymentHistory_Payment">
+      <End Role="Payments" EntitySet="Payments" />
+      <End Role="PaymentHistory" EntitySet="PaymentHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PaymentHistory_PaymentType" Association="Self.FK_PaymentHistory_PaymentType">
+      <End Role="PaymentType" EntitySet="PaymentType" />
+      <End Role="PaymentHistory" EntitySet="PaymentHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_Customer" Association="Self.FK_Payments_Customer">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_PaymentType" Association="Self.FK_Payments_PaymentType">
+      <End Role="PaymentType" EntitySet="PaymentType" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_Users" Association="Self.FK_Payments_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tarifler_Customer" Association="Self.FK_Tarifler_Customer">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Tarifler" EntitySet="Tarifler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Role" Association="Self.FK_Users_Role">
+      <End Role="UserRole" EntitySet="UserRole" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,541 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B3CFB2F1-065A-42EC-8657-B1B56B034678}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>İNTEKO</RootNamespace>
+    <AssemblyName>INTEKO</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v20.1.Core, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.Desktop.v20.1, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v20.1, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.DataAccess.v20.1, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.DataAccess.v20.1.UI, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Images.v20.1, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Mvvm.v20.1, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v20.1.Core, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Pdf.v20.1.Core, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Pdf.v20.1.Drawing, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v20.1.Core, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v20.1.Core, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v20.1, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v20.1.UI, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v20.1, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v20.1, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v20.1.UI, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v20.1.Wizard, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v20.1, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGrid.v20.1, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraLayout.v20.1, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPdfViewer.v20.1, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v20.1, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraRichEdit.v20.1, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeList.v20.1, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=6.2.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>packages\EPPlus.6.2.0\lib\net462\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.Interfaces, Version=6.1.1.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
+      <HintPath>packages\EPPlus.Interfaces.6.1.1\lib\net462\EPPlus.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.System.Drawing, Version=6.1.1.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
+      <HintPath>packages\EPPlus.System.Drawing.6.1.1\lib\net462\EPPlus.System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelDataReader, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>packages\ExcelDataReader.3.6.0\lib\net45\ExcelDataReader.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelDataReader.DataSet, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>packages\ExcelDataReader.DataSet.3.6.0\lib\net35\ExcelDataReader.DataSet.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="MessageBoxManager">
+      <HintPath>..\messageboxmanager\WindowsApplication1\bin\Release\MessageBoxManager.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Z.Dapper.Plus, Version=6.0.3.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
+      <HintPath>packages\Z.Dapper.Plus.6.0.3\lib\net45\Z.Dapper.Plus.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Area.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Bonnus\fBonusFiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bonnus\fBonusFiles.Designer.cs">
+      <DependentUpon>fBonusFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bonnus\fNewBonus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bonnus\fNewBonus.Designer.cs">
+      <DependentUpon>fNewBonus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bonnus\fSelectedCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bonnus\fSelectedCustomer.Designer.cs">
+      <DependentUpon>fSelectedCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bonus.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BonusFiles.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Category.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="City.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comments\fComments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Comments\fComments.Designer.cs">
+      <DependentUpon>fComments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Contracts.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Customers.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Definitions\fDefinitions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Definitions\fDefinitions.Designer.cs">
+      <DependentUpon>fDefinitions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DetailForm\fContract.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetailForm\fContract.Designer.cs">
+      <DependentUpon>fContract.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DetailForm\fDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetailForm\fDetail.Designer.cs">
+      <DependentUpon>fDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DetailForm\fExtraContracts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetailForm\fExtraContracts.Designer.cs">
+      <DependentUpon>fExtraContracts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DetailForm\fNewTarif.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetailForm\fNewTarif.Designer.cs">
+      <DependentUpon>fNewTarif.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DetailForm\fTarif.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetailForm\fTarif.Designer.cs">
+      <DependentUpon>fTarif.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Documents.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Enums\EnumExtension.cs" />
+    <Compile Include="Enums\EnumsOperation.cs" />
+    <Compile Include="Expenses.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fDEtail2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fDEtail2.Designer.cs">
+      <DependentUpon>fDEtail2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fExcel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fExcel.Designer.cs">
+      <DependentUpon>fExcel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fExpenses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fExpenses.Designer.cs">
+      <DependentUpon>fExpenses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fDashboard.Designer.cs">
+      <DependentUpon>fDashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fTestInnerJoin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fTestInnerJoin.Designer.cs">
+      <DependentUpon>fTestInnerJoin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\AutoMessage.cs" />
+    <Compile Include="Helpers\DefaultConstants.cs" />
+    <Compile Include="Helpers\FormHelpers.cs" />
+    <Compile Include="Helpers\GridDataSource\GridViewDataSource.cs" />
+    <Compile Include="Helpers\Servers.cs" />
+    <Compile Include="IntekodbDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IntekodbDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Kassalar.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LicenceHistory.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LicenceVersions.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Licence\fLicenceHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Licence\fLicenceHistory.Designer.cs">
+      <DependentUpon>fLicenceHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\fLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\fLogin.Designer.cs">
+      <DependentUpon>fLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Logs.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Messages\CustomerMessages.cs" />
+    <Compile Include="Messages\PaymentMessage.cs" />
+    <Compile Include="NewCustomer\fNewCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewCustomer\fNewCustomer.Designer.cs">
+      <DependentUpon>fNewCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PayHistory\fPaymenHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PayHistory\fPaymenHistory.Designer.cs">
+      <DependentUpon>fPaymenHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentHistory.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Payments.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentType.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pay\fPay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pay\fPay.Designer.cs">
+      <DependentUpon>fPay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Problems.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setting\fSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setting\fSettings.Designer.cs">
+      <DependentUpon>fSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tarifler.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="testtt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="testtt.Designer.cs">
+      <DependentUpon>testtt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\ConvertTypes.cs" />
+    <Compile Include="Tools\ExcelMappingSql.cs" />
+    <Compile Include="Tools\fAddHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\fAddHistory.Designer.cs">
+      <DependentUpon>fAddHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\fContractNotification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\fContractNotification.Designer.cs">
+      <DependentUpon>fContractNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\fNewUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\fNewUpdate.Designer.cs">
+      <DependentUpon>fNewUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\FormBase.cs" />
+    <Compile Include="Tools\fShutdown.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\fShutdown.Designer.cs">
+      <DependentUpon>fShutdown.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\Logger.cs" />
+    <Compile Include="Tools\Proccess.cs" />
+    <Compile Include="Tools\ShowMessage.cs" />
+    <Compile Include="UserRole.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Users.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User\fUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="User\fUser.Designer.cs">
+      <DependentUpon>fUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Validations\TransactionValidations.cs" />
+    <EmbeddedResource Include="Bonnus\fBonusFiles.resx">
+      <DependentUpon>fBonusFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bonnus\fNewBonus.resx">
+      <DependentUpon>fNewBonus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bonnus\fSelectedCustomer.resx">
+      <DependentUpon>fSelectedCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comments\fComments.resx">
+      <DependentUpon>fComments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Definitions\fDefinitions.resx">
+      <DependentUpon>fDefinitions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetailForm\fContract.resx">
+      <DependentUpon>fContract.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetailForm\fDetail.resx">
+      <DependentUpon>fDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetailForm\fExtraContracts.resx">
+      <DependentUpon>fExtraContracts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetailForm\fNewTarif.resx">
+      <DependentUpon>fNewTarif.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetailForm\fTarif.resx">
+      <DependentUpon>fTarif.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fDEtail2.resx">
+      <DependentUpon>fDEtail2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fExcel.resx">
+      <DependentUpon>fExcel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fExpenses.resx">
+      <DependentUpon>fExpenses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fDashboard.resx">
+      <DependentUpon>fDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fTestInnerJoin.resx">
+      <DependentUpon>fTestInnerJoin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Licence\fLicenceHistory.resx">
+      <DependentUpon>fLicenceHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\fLogin.resx">
+      <DependentUpon>fLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewCustomer\fNewCustomer.resx">
+      <DependentUpon>fNewCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PayHistory\fPaymenHistory.resx">
+      <DependentUpon>fPaymenHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pay\fPay.resx">
+      <DependentUpon>fPay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Setting\fSettings.resx">
+      <DependentUpon>fSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="testtt.resx">
+      <DependentUpon>testtt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\fAddHistory.resx">
+      <DependentUpon>fAddHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\fContractNotification.resx">
+      <DependentUpon>fContractNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\fNewUpdate.resx">
+      <DependentUpon>fNewUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\fShutdown.resx">
+      <DependentUpon>fShutdown.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User\fUser.resx">
+      <DependentUpon>fUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EntityDeploy Include="EntityModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EntityModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EntityModel.edmx.diagram">
+      <DependentUpon>EntityModel.edmx</DependentUpon>
+    </None>
+    <None Include="IntekodbDataSet.xsc">
+      <DependentUpon>IntekodbDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="IntekodbDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>IntekodbDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="IntekodbDataSet.xss">
+      <DependentUpon>IntekodbDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EntityModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EntityModel.Context.cs</LastGenOutput>
+      <DependentUpon>EntityModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="EntityModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EntityModel.edmx</DependentUpon>
+      <LastGenOutput>EntityModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="INTEKO.DB\INTEKO.DB.csproj">
+      <Project>{47971f91-86c1-4d9f-8643-ecf4a24690ce}</Project>
+      <Name>INTEKO.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="İNTEKO.UPDATE\İNTEKO.UPDATE.csproj">
+      <Project>{55428964-4DB9-4CD6-85F6-28A75FDA83F8}</Project>
+      <Name>İNTEKO.UPDATE</Name>
+    </ProjectReference>
+    <ProjectReference Include="İNTEKO.UserControls\İNTEKO.UserControls.csproj">
+      <Project>{a550e215-5f15-4715-8911-f34b6e1f4032}</Project>
+      <Name>İNTEKO.UserControls</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

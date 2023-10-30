@@ -1,0 +1,653 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="IntekodbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="PaymentType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PaymentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PaymentHistory" Relationship="IntekodbModel.FK_PaymentHistory_PaymentType" FromRole="PaymentType" ToRole="PaymentHistory" />
+    <NavigationProperty Name="Expenses" Relationship="IntekodbModel.FK_Expenses_PaymentType" FromRole="PaymentType" ToRole="Expenses" />
+    <NavigationProperty Name="Payments" Relationship="IntekodbModel.FK_Payments_PaymentType" FromRole="PaymentType" ToRole="Payments" />
+    <NavigationProperty Name="Customers" Relationship="IntekodbModel.FK_Customers_PaymentType" FromRole="PaymentType" ToRole="Customers" />
+  </EntityType>
+  <EntityContainer Name="IntekodbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="PaymentType" EntityType="Self.PaymentType" />
+    <EntitySet Name="Category" EntityType="IntekodbModel.Category" />
+    <EntitySet Name="Documents" EntityType="IntekodbModel.Documents" />
+    <EntitySet Name="Area" EntityType="IntekodbModel.Area" />
+    <EntitySet Name="City" EntityType="IntekodbModel.City" />
+    <AssociationSet Name="FK_Area_City" Association="IntekodbModel.FK_Area_City">
+      <End Role="City" EntitySet="City" />
+      <End Role="Area" EntitySet="Area" />
+    </AssociationSet>
+    <EntitySet Name="Kassalar" EntityType="IntekodbModel.Kassalar" />
+    <EntitySet Name="Contracts" EntityType="IntekodbModel.Contracts" />
+    <EntitySet Name="PaymentHistory" EntityType="IntekodbModel.PaymentHistory" />
+    <AssociationSet Name="FK_PaymentHistory_PaymentType" Association="IntekodbModel.FK_PaymentHistory_PaymentType">
+      <End Role="PaymentType" EntitySet="PaymentType" />
+      <End Role="PaymentHistory" EntitySet="PaymentHistory" />
+    </AssociationSet>
+    <EntitySet Name="Expenses" EntityType="IntekodbModel.Expenses" />
+    <AssociationSet Name="FK_Expenses_Category" Association="IntekodbModel.FK_Expenses_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Expenses" EntitySet="Expenses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Expenses_PaymentType" Association="IntekodbModel.FK_Expenses_PaymentType">
+      <End Role="PaymentType" EntitySet="PaymentType" />
+      <End Role="Expenses" EntitySet="Expenses" />
+    </AssociationSet>
+    <EntitySet Name="UserRole" EntityType="IntekodbModel.UserRole" />
+    <EntitySet Name="Tarifler" EntityType="IntekodbModel.Tarifler" />
+    <EntitySet Name="Payments" EntityType="IntekodbModel.Payments" />
+    <AssociationSet Name="FK_PaymentHistory_Payment" Association="IntekodbModel.FK_PaymentHistory_Payment">
+      <End Role="Payments" EntitySet="Payments" />
+      <End Role="PaymentHistory" EntitySet="PaymentHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_PaymentType" Association="IntekodbModel.FK_Payments_PaymentType">
+      <End Role="PaymentType" EntitySet="PaymentType" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <EntitySet Name="Logs" EntityType="IntekodbModel.Logs" />
+    <FunctionImport Name="ExpensesProcNo" ReturnType="Collection(String)" />
+    <EntitySet Name="Users" EntityType="IntekodbModel.Users" />
+    <AssociationSet Name="FK_Users_Role" Association="IntekodbModel.FK_Users_Role">
+      <End Role="UserRole" EntitySet="UserRole" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Logs_Users" Association="IntekodbModel.FK_Logs_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Logs" EntitySet="Logs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Expenses_Users" Association="IntekodbModel.FK_Expenses_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Expenses" EntitySet="Expenses" />
+    </AssociationSet>
+    <EntitySet Name="Bonus" EntityType="IntekodbModel.Bonus" />
+    <AssociationSet Name="FK_Bonus_ToTable" Association="IntekodbModel.FK_Bonus_ToTable">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Bonus" EntitySet="Bonus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_Users" Association="IntekodbModel.FK_Payments_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <EntitySet Name="LicenceHistory" EntityType="IntekodbModel.LicenceHistory" />
+    <AssociationSet Name="FK_LicenceHistory_Users" Association="IntekodbModel.FK_LicenceHistory_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="LicenceHistory" EntitySet="LicenceHistory" />
+    </AssociationSet>
+    <EntitySet Name="BonusFiles" EntityType="IntekodbModel.BonusFiles" />
+    <AssociationSet Name="FK_BonusFiles_Bonus" Association="IntekodbModel.FK_BonusFiles_Bonus">
+      <End Role="Bonus" EntitySet="Bonus" />
+      <End Role="BonusFiles" EntitySet="BonusFiles" />
+    </AssociationSet>
+    <EntitySet Name="LicenceVersions" EntityType="IntekodbModel.LicenceVersions" />
+    <EntitySet Name="Customers" EntityType="IntekodbModel.Customers" />
+    <AssociationSet Name="FK_Customers_Area" Association="IntekodbModel.FK_Customers_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="Customers" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customers_City" Association="IntekodbModel.FK_Customers_City">
+      <End Role="City" EntitySet="City" />
+      <End Role="Customers" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customers_Kassalar" Association="IntekodbModel.FK_Customers_Kassalar">
+      <End Role="Kassalar" EntitySet="Kassalar" />
+      <End Role="Customers" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customers_PaymentType" Association="IntekodbModel.FK_Customers_PaymentType">
+      <End Role="PaymentType" EntitySet="PaymentType" />
+      <End Role="Customers" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customers_Users" Association="IntekodbModel.FK_Customers_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Customers" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LicenceHistory_CustomerID" Association="IntekodbModel.FK_LicenceHistory_CustomerID">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="LicenceHistory" EntitySet="LicenceHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PaymentHistory_Customer" Association="IntekodbModel.FK_PaymentHistory_Customer">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="PaymentHistory" EntitySet="PaymentHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_Customer" Association="IntekodbModel.FK_Payments_Customer">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tarifler_Customer" Association="IntekodbModel.FK_Tarifler_Customer">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Tarifler" EntitySet="Tarifler" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Expenses" Relationship="IntekodbModel.FK_Expenses_Category" FromRole="Category" ToRole="Expenses" />
+  </EntityType>
+  <EntityType Name="Documents">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FileName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Extensions" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="Data" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Area">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CityID" Type="Int32" />
+    <Property Name="AreaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="City" Relationship="IntekodbModel.FK_Area_City" FromRole="Area" ToRole="City" />
+    <NavigationProperty Name="Customers" Relationship="IntekodbModel.FK_Customers_Area" FromRole="Area" ToRole="Customers" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Area" Relationship="IntekodbModel.FK_Area_City" FromRole="City" ToRole="Area" />
+    <NavigationProperty Name="Customers" Relationship="IntekodbModel.FK_Customers_City" FromRole="City" ToRole="Customers" />
+  </EntityType>
+  <Association Name="FK_Area_City">
+    <End Type="IntekodbModel.City" Role="City" Multiplicity="0..1" />
+    <End Type="IntekodbModel.Area" Role="Area" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Area">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Kassalar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Customers" Relationship="IntekodbModel.FK_Customers_Kassalar" FromRole="Kassalar" ToRole="Customers" />
+  </EntityType>
+  <EntityType Name="Contracts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="Int32" />
+    <Property Name="Elave2FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Elave2FileExtensions" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="Elave2Data" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="PaymentHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QaimeNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentTotal" Type="Double" />
+    <Property Name="PaymentPaid" Type="Double" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="Avans" Type="Double" />
+    <Property Name="PaymentTypeID" Type="Int32" />
+    <Property Name="CustomerID" Type="Int32" />
+    <Property Name="Comment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentID" Type="Int32" />
+    <NavigationProperty Name="PaymentType" Relationship="IntekodbModel.FK_PaymentHistory_PaymentType" FromRole="PaymentHistory" ToRole="PaymentType" />
+    <NavigationProperty Name="Payments" Relationship="IntekodbModel.FK_PaymentHistory_Payment" FromRole="PaymentHistory" ToRole="Payments" />
+    <NavigationProperty Name="Customers" Relationship="IntekodbModel.FK_PaymentHistory_Customer" FromRole="PaymentHistory" ToRole="Customers" />
+  </EntityType>
+  <Association Name="FK_PaymentHistory_PaymentType">
+    <End Type="IntekodbModel.PaymentType" Role="PaymentType" Multiplicity="0..1" />
+    <End Type="IntekodbModel.PaymentHistory" Role="PaymentHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PaymentHistory">
+        <PropertyRef Name="PaymentTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Expenses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Header" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UsersID" Type="Int32" />
+    <Property Name="CategoryID" Type="Int32" />
+    <Property Name="PaymentTypeID" Type="Int32" />
+    <Property Name="TotalPaid" Type="Double" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="Comment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="LogDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Category" Relationship="IntekodbModel.FK_Expenses_Category" FromRole="Expenses" ToRole="Category" />
+    <NavigationProperty Name="PaymentType" Relationship="IntekodbModel.FK_Expenses_PaymentType" FromRole="Expenses" ToRole="PaymentType" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="ExNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Users" Relationship="IntekodbModel.FK_Expenses_Users" FromRole="Expenses" ToRole="Users" />
+  </EntityType>
+  <Association Name="FK_Expenses_Category">
+    <End Type="IntekodbModel.Category" Role="Category" Multiplicity="0..1" />
+    <End Type="IntekodbModel.Expenses" Role="Expenses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Expenses">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Expenses_PaymentType">
+    <End Type="IntekodbModel.PaymentType" Role="PaymentType" Multiplicity="0..1" />
+    <End Type="IntekodbModel.Expenses" Role="Expenses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Expenses">
+        <PropertyRef Name="PaymentTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Adds" Type="Boolean" />
+    <Property Name="Edit" Type="Boolean" />
+    <Property Name="Remove" Type="Boolean" />
+    <Property Name="Show" Type="Boolean" />
+    <Property Name="LogsData" Type="Boolean" />
+    <NavigationProperty Name="Users" Relationship="IntekodbModel.FK_Users_Role" FromRole="UserRole" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Tarifler">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="Int32" />
+    <Property Name="Month" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="OldTarif" Type="Double" />
+    <Property Name="NewTarif" Type="Double" />
+    <Property Name="Tarix" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Customers" Relationship="IntekodbModel.FK_Tarifler_Customer" FromRole="Tarifler" ToRole="Customers" />
+  </EntityType>
+  <EntityType Name="Payments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QaimeNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CustomerID" Type="Int32" />
+    <Property Name="OdenecekMebleg" Type="Double" />
+    <Property Name="OdenenMebleg" Type="Double" />
+    <Property Name="Avans" Type="Double" />
+    <Property Name="PaymentTypeID" Type="Int32" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="LogDate" Type="DateTime" Precision="3" />
+    <Property Name="Qaliq" Type="Double" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="Comment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Voen" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="OdeyiciAdi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="UserID" Type="Int32" />
+    <NavigationProperty Name="PaymentHistory" Relationship="IntekodbModel.FK_PaymentHistory_Payment" FromRole="Payments" ToRole="PaymentHistory" />
+    <NavigationProperty Name="PaymentType" Relationship="IntekodbModel.FK_Payments_PaymentType" FromRole="Payments" ToRole="PaymentType" />
+    <NavigationProperty Name="Users" Relationship="IntekodbModel.FK_Payments_Users" FromRole="Payments" ToRole="Users" />
+    <NavigationProperty Name="Customers" Relationship="IntekodbModel.FK_Payments_Customer" FromRole="Payments" ToRole="Customers" />
+  </EntityType>
+  <Association Name="FK_PaymentHistory_Payment">
+    <End Type="IntekodbModel.Payments" Role="Payments" Multiplicity="0..1" />
+    <End Type="IntekodbModel.PaymentHistory" Role="PaymentHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Payments">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PaymentHistory">
+        <PropertyRef Name="PaymentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_PaymentType">
+    <End Type="IntekodbModel.PaymentType" Role="PaymentType" Multiplicity="0..1" />
+    <End Type="IntekodbModel.Payments" Role="Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="PaymentTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Logs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="Operation" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Users" Relationship="IntekodbModel.FK_Logs_Users" FromRole="Logs" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="User_ID" />
+    </Key>
+    <Property Name="Username" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NameSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+    <Property Name="UserRoleID" Type="Int32" />
+    <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="UserRole" Relationship="IntekodbModel.FK_Users_Role" FromRole="Users" ToRole="UserRole" />
+    <NavigationProperty Name="Logs" Relationship="IntekodbModel.FK_Logs_Users" FromRole="Users" ToRole="Logs" />
+    <NavigationProperty Name="Expenses" Relationship="IntekodbModel.FK_Expenses_Users" FromRole="Users" ToRole="Expenses" />
+    <NavigationProperty Name="Bonus" Relationship="IntekodbModel.FK_Bonus_ToTable" FromRole="Users" ToRole="Bonus" />
+    <NavigationProperty Name="Payments" Relationship="IntekodbModel.FK_Payments_Users" FromRole="Users" ToRole="Payments" />
+    <NavigationProperty Name="LicenceHistory" Relationship="IntekodbModel.FK_LicenceHistory_Users" FromRole="Users" ToRole="LicenceHistory" />
+    <NavigationProperty Name="Customers" Relationship="IntekodbModel.FK_Customers_Users" FromRole="Users" ToRole="Customers" />
+  </EntityType>
+  <Association Name="FK_Users_Role">
+    <End Type="IntekodbModel.UserRole" Role="UserRole" Multiplicity="0..1" />
+    <End Type="IntekodbModel.Users" Role="Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserRole">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="UserRoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Logs_Users">
+    <End Type="IntekodbModel.Users" Role="Users" Multiplicity="0..1" />
+    <End Type="IntekodbModel.Logs" Role="Logs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="User_ID" />
+      </Principal>
+      <Dependent Role="Logs">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Expenses_Users">
+    <End Type="IntekodbModel.Users" Role="Users" Multiplicity="0..1" />
+    <End Type="IntekodbModel.Expenses" Role="Expenses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="User_ID" />
+      </Principal>
+      <Dependent Role="Expenses">
+        <PropertyRef Name="UsersID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Bonus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerNameSurname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Installer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProccessType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="Payment_Amount" Type="Double" />
+    <Property Name="PaymentPaid" Type="Double" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="LogDate" Type="DateTime" Precision="3" />
+    <Property Name="LogUpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="Comment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UserID" Type="Int32" />
+    <NavigationProperty Name="Users" Relationship="IntekodbModel.FK_Bonus_ToTable" FromRole="Bonus" ToRole="Users" />
+    <NavigationProperty Name="BonusFiles" Relationship="IntekodbModel.FK_BonusFiles_Bonus" FromRole="Bonus" ToRole="BonusFiles" />
+    <Property Name="Voen" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_Bonus_ToTable">
+    <End Type="IntekodbModel.Users" Role="Users" Multiplicity="0..1" />
+    <End Type="IntekodbModel.Bonus" Role="Bonus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="User_ID" />
+      </Principal>
+      <Dependent Role="Bonus">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_Users">
+    <End Type="IntekodbModel.Users" Role="Users" Multiplicity="0..1" />
+    <End Type="IntekodbModel.Payments" Role="Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="User_ID" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="LicenceHistory">
+    <Key>
+      <PropertyRef Name="LicenceID" />
+    </Key>
+    <Property Name="LicenceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="Int32" />
+    <Property Name="Tarix" Type="DateTime" Precision="3" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="LicenceKey" Type="Guid" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Users" Relationship="IntekodbModel.FK_LicenceHistory_Users" FromRole="LicenceHistory" ToRole="Users" />
+    <NavigationProperty Name="Customers" Relationship="IntekodbModel.FK_LicenceHistory_CustomerID" FromRole="LicenceHistory" ToRole="Customers" />
+  </EntityType>
+  <Association Name="FK_LicenceHistory_Users">
+    <End Type="IntekodbModel.Users" Role="Users" Multiplicity="0..1" />
+    <End Type="IntekodbModel.LicenceHistory" Role="LicenceHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="User_ID" />
+      </Principal>
+      <Dependent Role="LicenceHistory">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="BonusFiles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Bonus_ID" Type="Int32" />
+    <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FileData" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Bonus" Relationship="IntekodbModel.FK_BonusFiles_Bonus" FromRole="BonusFiles" ToRole="Bonus" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="FileExtensions" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_BonusFiles_Bonus">
+    <End Type="IntekodbModel.Bonus" Role="Bonus" Multiplicity="1" />
+    <End Type="IntekodbModel.BonusFiles" Role="BonusFiles" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Bonus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BonusFiles">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="LicenceVersions">
+    <Key>
+      <PropertyRef Name="LicenceVersionNumber" />
+    </Key>
+    <Property Name="LicenceVersionNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ContractNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NameSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Voen" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CityID" Type="Int32" />
+    <Property Name="AreaID" Type="Int32" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Registration_Date" Type="DateTime" Precision="3" />
+    <Property Name="SalesMan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="LicenceID" Type="Guid" />
+    <Property Name="LicenceVersion" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="LicenceRegister" Type="DateTime" Precision="3" />
+    <Property Name="LicenceStatus" Type="Boolean" />
+    <Property Name="Kassa_Model" Type="Int32" />
+    <Property Name="KassaSerialNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KassaVersionNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentTypeID" Type="Int32" />
+    <Property Name="RegistrationPrice" Type="Double" />
+    <Property Name="ServicePrice" Type="Double" />
+    <Property Name="MposVersion" Type="Boolean" />
+    <Property Name="ContractFileName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="FileExtensions" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="ContractData" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="LogDate" Type="DateTime" Precision="3" />
+    <Property Name="TypeofCompany" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="GuessLocation" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Area" Relationship="IntekodbModel.FK_Customers_Area" FromRole="Customers" ToRole="Area" />
+    <NavigationProperty Name="City" Relationship="IntekodbModel.FK_Customers_City" FromRole="Customers" ToRole="City" />
+    <NavigationProperty Name="Kassalar" Relationship="IntekodbModel.FK_Customers_Kassalar" FromRole="Customers" ToRole="Kassalar" />
+    <NavigationProperty Name="PaymentType" Relationship="IntekodbModel.FK_Customers_PaymentType" FromRole="Customers" ToRole="PaymentType" />
+    <NavigationProperty Name="Users" Relationship="IntekodbModel.FK_Customers_Users" FromRole="Customers" ToRole="Users" />
+    <NavigationProperty Name="LicenceHistory" Relationship="IntekodbModel.FK_LicenceHistory_CustomerID" FromRole="Customers" ToRole="LicenceHistory" />
+    <NavigationProperty Name="PaymentHistory" Relationship="IntekodbModel.FK_PaymentHistory_Customer" FromRole="Customers" ToRole="PaymentHistory" />
+    <NavigationProperty Name="Payments" Relationship="IntekodbModel.FK_Payments_Customer" FromRole="Customers" ToRole="Payments" />
+    <NavigationProperty Name="Tarifler" Relationship="IntekodbModel.FK_Tarifler_Customer" FromRole="Customers" ToRole="Tarifler" />
+  </EntityType>
+  <Association Name="FK_Customers_Area">
+    <End Type="IntekodbModel.Area" Role="Area" Multiplicity="0..1" />
+    <End Type="IntekodbModel.Customers" Role="Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customers">
+        <PropertyRef Name="AreaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customers_City">
+    <End Type="IntekodbModel.City" Role="City" Multiplicity="0..1" />
+    <End Type="IntekodbModel.Customers" Role="Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customers">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customers_Kassalar">
+    <End Type="IntekodbModel.Kassalar" Role="Kassalar" Multiplicity="0..1" />
+    <End Type="IntekodbModel.Customers" Role="Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kassalar">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customers">
+        <PropertyRef Name="Kassa_Model" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customers_PaymentType">
+    <End Type="IntekodbModel.PaymentType" Role="PaymentType" Multiplicity="0..1" />
+    <End Type="IntekodbModel.Customers" Role="Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customers">
+        <PropertyRef Name="PaymentTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customers_Users">
+    <End Type="IntekodbModel.Users" Role="Users" Multiplicity="0..1" />
+    <End Type="IntekodbModel.Customers" Role="Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="User_ID" />
+      </Principal>
+      <Dependent Role="Customers">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LicenceHistory_CustomerID">
+    <End Type="IntekodbModel.Customers" Role="Customers" Multiplicity="0..1" />
+    <End Type="IntekodbModel.LicenceHistory" Role="LicenceHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LicenceHistory">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PaymentHistory_Customer">
+    <End Type="IntekodbModel.Customers" Role="Customers" Multiplicity="0..1" />
+    <End Type="IntekodbModel.PaymentHistory" Role="PaymentHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PaymentHistory">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_Customer">
+    <End Type="IntekodbModel.Customers" Role="Customers" Multiplicity="0..1" />
+    <End Type="IntekodbModel.Payments" Role="Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tarifler_Customer">
+    <End Type="IntekodbModel.Customers" Role="Customers" Multiplicity="0..1" />
+    <End Type="IntekodbModel.Tarifler" Role="Tarifler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tarifler">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

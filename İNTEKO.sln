@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32510.428
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "İNTEKO", "İNTEKO.csproj", "{B3CFB2F1-065A-42EC-8657-B1B56B034678}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "İNTEKO.UserControls", "İNTEKO.UserControls\İNTEKO.UserControls.csproj", "{A550E215-5F15-4715-8911-F34B6E1F4032}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INTEKO.DB", "INTEKO.DB\INTEKO.DB.csproj", "{47971F91-86C1-4D9F-8643-ECF4A24690CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "İNTEKO.UPDATE", "İNTEKO.UPDATE\İNTEKO.UPDATE.csproj", "{55428964-4DB9-4CD6-85F6-28A75FDA83F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3CFB2F1-065A-42EC-8657-B1B56B034678}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3CFB2F1-065A-42EC-8657-B1B56B034678}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3CFB2F1-065A-42EC-8657-B1B56B034678}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3CFB2F1-065A-42EC-8657-B1B56B034678}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A550E215-5F15-4715-8911-F34B6E1F4032}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A550E215-5F15-4715-8911-F34B6E1F4032}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A550E215-5F15-4715-8911-F34B6E1F4032}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A550E215-5F15-4715-8911-F34B6E1F4032}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47971F91-86C1-4D9F-8643-ECF4A24690CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47971F91-86C1-4D9F-8643-ECF4A24690CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47971F91-86C1-4D9F-8643-ECF4A24690CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47971F91-86C1-4D9F-8643-ECF4A24690CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55428964-4DB9-4CD6-85F6-28A75FDA83F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55428964-4DB9-4CD6-85F6-28A75FDA83F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55428964-4DB9-4CD6-85F6-28A75FDA83F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55428964-4DB9-4CD6-85F6-28A75FDA83F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2DDEF092-1DE0-4860-A80B-F2D04B9AE325}
+	EndGlobalSection
+EndGlobal

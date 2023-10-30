@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c7b03cf7287f43ae8d6c33a16bec076e" Name="Diagram1" ZoomLevel="94">
+        <EntityTypeShape EntityType="IntekodbModel.PaymentType" Width="1.5" PointX="4.625" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="IntekodbModel.Category" Width="1.5" PointX="6.25" PointY="0.5" />
+        <EntityTypeShape EntityType="IntekodbModel.Documents" Width="1.5" PointX="6.25" PointY="4.375" />
+        <EntityTypeShape EntityType="IntekodbModel.Area" Width="1.5" PointX="9.5" PointY="4.25" />
+        <EntityTypeShape EntityType="IntekodbModel.City" Width="1.5" PointX="7.875" PointY="0.5" />
+        <AssociationConnector Association="IntekodbModel.FK_Area_City" />
+        <EntityTypeShape EntityType="IntekodbModel.Kassalar" Width="1.5" PointX="3" PointY="0.5" />
+        <EntityTypeShape EntityType="IntekodbModel.Contracts" Width="1.5" PointX="6.25" PointY="2.25" />
+        <EntityTypeShape EntityType="IntekodbModel.PaymentHistory" Width="1.5" PointX="3" PointY="2.5" />
+        <AssociationConnector Association="IntekodbModel.FK_PaymentHistory_PaymentType" />
+        <EntityTypeShape EntityType="IntekodbModel.Expenses" Width="1.5" PointX="9.5" PointY="0.5" />
+        <AssociationConnector Association="IntekodbModel.FK_Expenses_Category" />
+        <AssociationConnector Association="IntekodbModel.FK_Expenses_PaymentType" />
+        <EntityTypeShape EntityType="IntekodbModel.UserRole" Width="1.5" PointX="1.375" PointY="0.5" />
+        <EntityTypeShape EntityType="IntekodbModel.Tarifler" Width="1.5" PointX="12.75" PointY="0.5" />
+        <EntityTypeShape EntityType="IntekodbModel.Logs" Width="1.5" PointX="12.75" PointY="3" />
+        <EntityTypeShape EntityType="IntekodbModel.Users" Width="1.5" PointX="1.375" PointY="3.25" />
+        <AssociationConnector Association="IntekodbModel.FK_Users_Role" />
+        <AssociationConnector Association="IntekodbModel.FK_Logs_Users" />
+        <AssociationConnector Association="IntekodbModel.FK_Expenses_Users" />
+        <EntityTypeShape EntityType="IntekodbModel.Bonus" Width="1.5" PointX="4.625" PointY="0.5" />
+        <AssociationConnector Association="IntekodbModel.FK_Bonus_ToTable" />
+        <EntityTypeShape EntityType="IntekodbModel.LicenceHistory" Width="1.5" PointX="1.375" PointY="6.875" />
+        <AssociationConnector Association="IntekodbModel.FK_LicenceHistory_Users" />
+        <EntityTypeShape EntityType="IntekodbModel.BonusFiles" Width="1.5" PointX="7.875" PointY="7.375" />
+        <AssociationConnector Association="IntekodbModel.FK_BonusFiles_Bonus" />
+        <EntityTypeShape EntityType="IntekodbModel.LicenceVersions" Width="1.5" PointX="12.75" PointY="5.125" />
+        <EntityTypeShape EntityType="IntekodbModel.Customers" Width="1.5" PointX="11.125" PointY="0.5" />
+        <AssociationConnector Association="IntekodbModel.FK_Customers_Area" />
+        <AssociationConnector Association="IntekodbModel.FK_Customers_City" />
+        <AssociationConnector Association="IntekodbModel.FK_Customers_Kassalar" />
+        <AssociationConnector Association="IntekodbModel.FK_Customers_PaymentType" />
+        <AssociationConnector Association="IntekodbModel.FK_Customers_Users" />
+        <AssociationConnector Association="IntekodbModel.FK_LicenceHistory_CustomerID" />
+        <AssociationConnector Association="IntekodbModel.FK_PaymentHistory_Customer" />
+        <AssociationConnector Association="IntekodbModel.FK_Tarifler_Customer" />
+        <EntityTypeShape EntityType="IntekodbModel.Problems" Width="1.5" PointX="3" PointY="6.125" />
+        <EntityTypeShape EntityType="IntekodbModel.Payments" Width="1.5" PointX="7.875" PointY="2.625" />
+        <AssociationConnector Association="IntekodbModel.FK_Payments_Customer" />
+        <AssociationConnector Association="IntekodbModel.FK_PaymentHistory_Payment" />
+        <AssociationConnector Association="IntekodbModel.FK_Payments_PaymentType" />
+        <AssociationConnector Association="IntekodbModel.FK_Payments_Users" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
