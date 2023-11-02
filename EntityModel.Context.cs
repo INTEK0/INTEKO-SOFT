@@ -47,6 +47,7 @@ namespace İNTEKO
         public virtual DbSet<Customers> Customers { get; set; }
         public virtual DbSet<Problems> Problems { get; set; }
         public virtual DbSet<Payments> Payments { get; set; }
+        public virtual DbSet<Archive_Customers> Archive_Customers { get; set; }
     
         public virtual ObjectResult<string> ExpensesProcNo()
         {

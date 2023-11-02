@@ -59,7 +59,7 @@ namespace İNTEKO.DetailForm
             double oldTarif = Convert.ToDouble(tOldTarif.EditValue);
             double newTarif = Convert.ToDouble(tNewTarif.EditValue);
 
-            var customer = db.Customers.Where(x => x.Id == CustomerID.Id).FirstOrDefault();
+            var customer = db.Customers.FirstOrDefault(x => x.Id == CustomerID.Id);
             customer.ServicePrice = newTarif;
 
             Tarifler tarif = new Tarifler();

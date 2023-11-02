@@ -7,19 +7,20 @@ using İNTEKO.Tools;
 using İNTEKO.Definitions;
 using İNTEKO.Helpers;
 using İNTEKO.Enums;
+using static İNTEKO.Enums.EnumsOperation;
 
 namespace İNTEKO
 {
     public partial class fExpenses : FormBase
     {
         IntekodbEntities db = new IntekodbEntities();
-        private int Operations { get; }
-        public int ID { get; set; }
-        public fExpenses(EnumsOperation.Operation operation)
+        private Operation Operations { get; }
+        public int expensesID { get; set; }
+        public fExpenses(Operation _operation)
         {
             InitializeComponent();
             cmbDoldur();
-            Operations = (int)operation;
+            Operations = _operation;
         }
 
         private string Control()
@@ -52,18 +53,18 @@ namespace İNTEKO
         private void fExpenses_Load(object sender, EventArgs e)
         {
             this.Text = Proccess.Versiya();
-            if (Operations == (int)EnumsOperation.Operation.Show)
+            if (Operations is Operation.Show)
             {
-                lStatus.Text = " ÖDƏNİLİB ";
+                lStatus.Text = StatusType.Paid.GetDescription().ToUpper();
                 lStatus.Visible = true;
-                userFooter_Save1.SaveButtonText = "Bağla";
+                userFooter_Save1.SaveButtonText = ButtonTextName.Close.GetDescription();
                 userFooter_Save1.CancelVisible = false;
                 bNewCategory.Enabled = false;
                 cmbCategory.Enabled = false;
                 cmbPaymentType.Enabled = false;
 
 
-                var show = db.Expenses.FirstOrDefault(x => x.Id == ID);
+                Expenses show = db.Expenses.FirstOrDefault(x => x.Id == expensesID);
                 tHeader.Text = show.Header;
                 cmbCategory.Text = show.Category.CategoryName;
                 tTotal.EditValue = show.TotalPaid.ToString();
@@ -73,11 +74,11 @@ namespace İNTEKO
                 lProccesNo.Text = "Əməliyyat № : " + show.ExNo;
                 lStatus.Focus();
             }
-            else if (Operations == (int)EnumsOperation.Operation.Edit)
+            else if (Operations is Operation.Edit)
             {
-                userFooter_Save1.SaveButtonText = "Düzəliş et";
+                userFooter_Save1.SaveButtonText = ButtonTextName.Edit.GetDescription();
 
-                var show = db.Expenses.FirstOrDefault(x => x.Id == ID);
+                Expenses show = db.Expenses.FirstOrDefault(x => x.Id == expensesID);
                 tHeader.Text = show.Header;
                 cmbCategory.Text = show.Category.CategoryName;
                 tTotal.EditValue = show.TotalPaid.ToString();
@@ -89,19 +90,19 @@ namespace İNTEKO
             }
             else if (Operations == (int)EnumsOperation.Operation.Add)
             {
-                userFooter_Save1.SaveButtonText = "Əlavə et";
+                userFooter_Save1.SaveButtonText = ButtonTextName.Add.GetDescription();
                 dateTarix.EditValue = DateTime.Now;
                 lProccesNo.Text = "Əməliyyat № : " + db.ExpensesProcNo().FirstOrDefault().ToString();
             }
-            else if (Operations == (int)EnumsOperation.Operation.Payment)
+            else if (Operations is Operation.Payment)
             {
-                lStatus.Text = " ÖDƏNİLMƏYİB ";
+                lStatus.Text = StatusType.NotPaid.GetDescription().ToUpper();
                 lStatus.Visible = true;
                 lStatus.BackColor = Color.FromArgb(231, 76, 60);
-                userFooter_Save1.SaveButtonText = "Ödəniş et";
+                userFooter_Save1.SaveButtonText = ButtonTextName.Payment.GetDescription();
                 bNewCategory.Enabled = false;
                 cmbCategory.Enabled = false;
-                var show = db.Expenses.FirstOrDefault(x => x.Id == ID);
+                Expenses show = db.Expenses.FirstOrDefault(x => x.Id == expensesID);
                 tHeader.Text = show.Header;
                 cmbCategory.Text = show.Category.CategoryName;
                 tTotal.EditValue = show.TotalPaid.ToString();
@@ -114,14 +115,14 @@ namespace İNTEKO
 
         private void userFooter_Save1_SaveClick(object sender, EventArgs e)
         {
-            if (Operations == (int)EnumsOperation.Operation.Show)
+            if (Operations ==Operation.Show)
             {
                 Close();
             }
-            else if (Operations == (int)EnumsOperation.Operation.Edit)
+            else if (Operations == Operation.Edit)
             {
                 if (Control() != null) { Message(Control(), UserControls.MessageForm.enmType.Warning); return; }
-                var edit = db.Expenses.FirstOrDefault(x => x.Id == ID);
+                var edit = db.Expenses.FirstOrDefault(x => x.Id == expensesID);
 
                 edit.Header = tHeader.Text.Trim();
                 edit.CategoryID = (int)cmbCategory.SelectedValue;
@@ -136,7 +137,7 @@ namespace İNTEKO
                 DialogResult = DialogResult.OK;
                 Close();
             }
-            else if (Operations == (int)EnumsOperation.Operation.Add)
+            else if (Operations == Operation.Add)
             {
                 MessageBox.Show(tTotal.Text.ToString());
                 var categoryID = db.Category.FirstOrDefault(x => x.CategoryName == cmbCategory.Text);
@@ -159,9 +160,9 @@ namespace İNTEKO
                 DialogResult = DialogResult.OK;
                 Close();
             }
-            else if (Operations == (int)EnumsOperation.Operation.Payment)
+            else if (Operations == Operation.Payment)
             {
-                var payments = db.Expenses.FirstOrDefault(x => x.Id == ID);
+                var payments = db.Expenses.FirstOrDefault(x => x.Id == expensesID);
                 payments.Status = true;
                 Logger.Log(payments.Header + " xərcinin ödənişi edildi.  Ə/N: " + payments.ExNo);
                 db.SaveChanges();

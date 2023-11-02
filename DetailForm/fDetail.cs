@@ -256,21 +256,6 @@ namespace İNTEKO.DetailForm
             this.Dispose();
         }
 
-        private void bDelete_Click(object sender, EventArgs e)
-        {
-            //if (MessageBox.Show("Seçili müştəriyə aid olan məlumatlar və müqavilələr bazadan qalıcı olaraq silinəcəkdir. \n\nBu əməliyyatı təsdiqləyirsiniz ?", "Mesaj", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            //{
-            //    var contractDelete = db.Contracts.Where(x => x.CustomerID == Customerid.Id).FirstOrDefault();
-            //    var customersDelete = db.Customers.Where(x => x.Id == Customerid.Id).FirstOrDefault();
-            //    if (contractDelete != null) { db.Contracts.Remove(contractDelete); }
-            //    db.Customers.Remove(customersDelete);
-            //    db.SaveChanges();
-            //    Message("Müştərinin məlumatları bazadan qalıcı olaraq silindi", UserControls.MessageForm.enmType.Success);
-            //    db.Dispose();
-            //    this.Dispose();
-            //}
-        }
-
         private void bExport_Click(object sender, EventArgs e)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -522,7 +507,7 @@ namespace İNTEKO.DetailForm
             f.ShowDialog();
         }
 
-        private  void bMposLicenceControl_Click(object sender, EventArgs e)
+        private void bMposLicenceControl_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
             LicenceRemoteServerControl();
@@ -595,6 +580,18 @@ namespace İNTEKO.DetailForm
         {
             db.Dispose();
             this.Dispose();
+        }
+
+        private void bDelete_Click(object sender, EventArgs e)
+        {
+            Customers data = db.Customers.First(x=> x.Id == CustomerID);
+            data.IsDeleted = true;
+            Archive_Customers archive = new Archive_Customers();
+            archive.CustomerID = CustomerID;
+            archive.DeletedDate = DateTime.Now;
+            archive.Username = Properties.Settings.Default.UserID;
+            db.Archive_Customers.Add(archive);
+            db.SaveChanges();
         }
     }
 }

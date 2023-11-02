@@ -85,7 +85,6 @@ namespace İNTEKO.DetailForm
             this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl18 = new DevExpress.XtraEditors.LabelControl();
             this.toogleMposVersion = new DevExpress.XtraEditors.ToggleSwitch();
-            this.bDelete = new DevExpress.XtraEditors.SimpleButton();
             this.bPaymentProcces = new DevExpress.XtraEditors.SimpleButton();
             this.bLicenceProcces = new DevExpress.XtraEditors.SimpleButton();
             this.bContractShow = new DevExpress.XtraEditors.SimpleButton();
@@ -95,6 +94,7 @@ namespace İNTEKO.DetailForm
             this.bMposStatusControl = new DevExpress.XtraEditors.SimpleButton();
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             this.tabCustomer = new DevExpress.XtraTab.XtraTabPage();
+            this.bDelete = new DevExpress.XtraEditors.SimpleButton();
             this.tabLicence = new DevExpress.XtraTab.XtraTabPage();
             this.bMposLicenceControl = new DevExpress.XtraEditors.SimpleButton();
             this.tabKassa = new DevExpress.XtraTab.XtraTabPage();
@@ -667,6 +667,9 @@ namespace İNTEKO.DetailForm
             this.tServicePrice.Properties.Appearance.Options.UseFont = true;
             this.tServicePrice.Properties.Appearance.Options.UseTextOptions = true;
             this.tServicePrice.Properties.Appearance.TextOptions.Trimming = DevExpress.Utils.Trimming.EllipsisCharacter;
+            this.tServicePrice.Properties.Mask.EditMask = "c";
+            this.tServicePrice.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.tServicePrice.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.tServicePrice.Size = new System.Drawing.Size(1139, 32);
             this.tServicePrice.TabIndex = 2;
             this.tServicePrice.TabStop = false;
@@ -682,6 +685,9 @@ namespace İNTEKO.DetailForm
             this.tRegisterPrice.Properties.Appearance.Options.UseFont = true;
             this.tRegisterPrice.Properties.Appearance.Options.UseTextOptions = true;
             this.tRegisterPrice.Properties.Appearance.TextOptions.Trimming = DevExpress.Utils.Trimming.EllipsisCharacter;
+            this.tRegisterPrice.Properties.Mask.EditMask = "c";
+            this.tRegisterPrice.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.tRegisterPrice.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.tRegisterPrice.Size = new System.Drawing.Size(1139, 32);
             this.tRegisterPrice.TabIndex = 2;
             this.tRegisterPrice.TabStop = false;
@@ -911,34 +917,6 @@ namespace İNTEKO.DetailForm
             this.toogleMposVersion.TabIndex = 13;
             this.toogleMposVersion.Visible = false;
             // 
-            // bDelete
-            // 
-            this.bDelete.AllowFocus = false;
-            this.bDelete.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.bDelete.Appearance.Font = new System.Drawing.Font("Nunito", 14F, System.Drawing.FontStyle.Bold);
-            this.bDelete.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.bDelete.Appearance.Options.UseBorderColor = true;
-            this.bDelete.Appearance.Options.UseFont = true;
-            this.bDelete.Appearance.Options.UseForeColor = true;
-            this.bDelete.Appearance.Options.UseTextOptions = true;
-            this.bDelete.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.bDelete.Appearance.TextOptions.Trimming = DevExpress.Utils.Trimming.EllipsisCharacter;
-            this.bDelete.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-            this.bDelete.AppearanceHovered.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(131)))), ((int)(((byte)(131)))));
-            this.bDelete.AppearanceHovered.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(131)))), ((int)(((byte)(131)))));
-            this.bDelete.AppearanceHovered.Options.UseBackColor = true;
-            this.bDelete.Location = new System.Drawing.Point(3, 534);
-            this.bDelete.LookAndFeel.SkinName = "Office 2019 White";
-            this.bDelete.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.bDelete.Name = "bDelete";
-            this.bDelete.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
-            this.bDelete.Size = new System.Drawing.Size(257, 48);
-            this.bDelete.TabIndex = 10;
-            this.bDelete.TabStop = false;
-            this.bDelete.Text = "Müştəri Statusunu dəyiştir";
-            this.bDelete.Visible = false;
-            this.bDelete.Click += new System.EventHandler(this.bDelete_Click);
-            // 
             // bPaymentProcces
             // 
             this.bPaymentProcces.AllowFocus = false;
@@ -1067,7 +1045,7 @@ namespace İNTEKO.DetailForm
             this.bExport.AppearanceHovered.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(131)))), ((int)(((byte)(131)))));
             this.bExport.AppearanceHovered.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(131)))), ((int)(((byte)(131)))));
             this.bExport.AppearanceHovered.Options.UseBackColor = true;
-            this.bExport.Location = new System.Drawing.Point(16, 588);
+            this.bExport.Location = new System.Drawing.Point(642, 526);
             this.bExport.LookAndFeel.SkinName = "Office 2019 White";
             this.bExport.LookAndFeel.UseDefaultLookAndFeel = false;
             this.bExport.Name = "bExport";
@@ -1176,6 +1154,33 @@ namespace İNTEKO.DetailForm
             this.tabCustomer.Name = "tabCustomer";
             this.tabCustomer.Size = new System.Drawing.Size(1342, 780);
             this.tabCustomer.Text = "Müştəri məlumatları";
+            // 
+            // bDelete
+            // 
+            this.bDelete.AllowFocus = false;
+            this.bDelete.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.bDelete.Appearance.Font = new System.Drawing.Font("Nunito", 14F, System.Drawing.FontStyle.Bold);
+            this.bDelete.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.bDelete.Appearance.Options.UseBorderColor = true;
+            this.bDelete.Appearance.Options.UseFont = true;
+            this.bDelete.Appearance.Options.UseForeColor = true;
+            this.bDelete.Appearance.Options.UseTextOptions = true;
+            this.bDelete.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.bDelete.Appearance.TextOptions.Trimming = DevExpress.Utils.Trimming.EllipsisCharacter;
+            this.bDelete.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.bDelete.AppearanceHovered.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(131)))), ((int)(((byte)(131)))));
+            this.bDelete.AppearanceHovered.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(131)))), ((int)(((byte)(131)))));
+            this.bDelete.AppearanceHovered.Options.UseBackColor = true;
+            this.bDelete.Location = new System.Drawing.Point(3, 526);
+            this.bDelete.LookAndFeel.SkinName = "Office 2019 White";
+            this.bDelete.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.bDelete.Name = "bDelete";
+            this.bDelete.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
+            this.bDelete.Size = new System.Drawing.Size(131, 81);
+            this.bDelete.TabIndex = 10;
+            this.bDelete.TabStop = false;
+            this.bDelete.Text = "Müştərini sil";
+            this.bDelete.Click += new System.EventHandler(this.bDelete_Click);
             // 
             // tabLicence
             // 
@@ -1366,7 +1371,6 @@ namespace İNTEKO.DetailForm
         private System.Windows.Forms.ComboBox cmbKassaType;
         public DevExpress.XtraEditors.SimpleButton bExtraContract;
         public DevExpress.XtraEditors.SimpleButton bExport;
-        public DevExpress.XtraEditors.SimpleButton bDelete;
         private DevExpress.XtraEditors.TextEdit tSalesMan;
         private DevExpress.XtraEditors.LabelControl labelControl25;
         private DevExpress.XtraEditors.ToggleSwitch toogleMposVersion;
@@ -1389,5 +1393,6 @@ namespace İNTEKO.DetailForm
         private DevExpress.XtraEditors.LabelControl lMposVersion;
         private DevExpress.XtraEditors.SimpleButton bMposLicenceControl;
         public UserControls.userFooter_Save userFooter_Save1;
+        private DevExpress.XtraEditors.SimpleButton bDelete;
     }
 }

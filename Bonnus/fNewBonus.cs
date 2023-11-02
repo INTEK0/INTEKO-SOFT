@@ -1,6 +1,7 @@
 ﻿using DevExpress.XtraEditors;
 using İNTEKO.Enums;
 using İNTEKO.Helpers;
+using İNTEKO.Messages;
 using İNTEKO.Tools;
 using System;
 using System.Collections.Generic;
@@ -11,18 +12,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static İNTEKO.Enums.EnumsOperation;
 
 namespace İNTEKO.Bonnus
 {
     public partial class fNewBonus : FormBase
     {
-        public fNewBonus()
-        {
-            InitializeComponent();
-        }
         IntekodbEntities db = new IntekodbEntities();
 
-        public string Operations { get; set; }
+        private Operation Operation { get; set; }
+
+        public fNewBonus(Operation _operation)
+        {
+            InitializeComponent();
+            Operation = _operation;
+        }
 
         public int BonusID { get; set; }
 
@@ -42,15 +46,16 @@ namespace İNTEKO.Bonnus
         {
             dateTarix.DateTime = DateTime.Now;
             var data = db.Users.Where(x => x.UserRole.Name == "QURAŞDIRICI").ToList();
+
             FormHelpers.ControlLoad(data, cmbInstaller, "NameSurname", "User_ID");
 
-            var bonus = db.Bonus.Where(x => x.Id == BonusID).FirstOrDefault();
-            if (Operations == EnumsOperation.Operation.Show.ToString())
+            Bonus bonus = db.Bonus.FirstOrDefault(x => x.Id == BonusID);
+            if (Operation == Operation.Show)
             {
-                userFooter_Save1.SaveButtonText = "Bağla";
+                userFooter_Save1.SaveButtonText = EnumsOperation.ButtonTextName.Close.GetDescription();
                 userFooter_Save1.CancelVisible = false;
                 lStatus.Visible = true;
-                lStatus.Text = " ÖDƏNİLİB ";
+                lStatus.Text = EnumsOperation.StatusType.Paid.GetDescription().ToUpper();
                 tCustomerName.Text = bonus.CustomerNameSurname;
                 tCompanyName.Text = bonus.CompanyName;
                 tVOEN.Text = bonus.Voen;
@@ -60,11 +65,11 @@ namespace İNTEKO.Bonnus
                 tTotal.EditValue = bonus.Payment_Amount;
                 tComment.Text = bonus.Comment;
                 ShowModeRead();
-                Logger.Log(tCompanyName.Text + " Bonusuna baxış keçirdi");
+                Logger.Log(tCompanyName.Text + " bonusuna baxış keçirdi");
             }
-            if (Operations == EnumsOperation.Operation.Payment.ToString())
+            if (Operation == Operation.Payment)
             {
-                lStatus.Text = " ÖDƏNİLMƏYİB ";
+                lStatus.Text = EnumsOperation.StatusType.NotPaid.GetDescription().ToUpper(); ;
                 lStatus.BackColor = Color.FromArgb(231, 76, 60);
                 lStatus.Visible = true;
                 userFooter_Save1.SaveButtonText = EnumsOperation.ButtonTextName.Payment.GetDescription();
@@ -79,7 +84,7 @@ namespace İNTEKO.Bonnus
                 tTotal.EditValue = bonus.Payment_Amount;
                 tComment.Text = bonus.Comment;
             }
-            if (Operations == EnumsOperation.Operation.Edit.ToString())
+            if (Operation == Operation.Edit)
             {
                 groupPay.Enabled = true;
                 groupComment.Enabled = true;
@@ -119,35 +124,45 @@ namespace İNTEKO.Bonnus
             dateTarix.EditValue = DateTime.Now;
         }
 
-        private string Control()
+        private string BonusValidation()
         {
             if (String.IsNullOrEmpty(tCustomerName.Text))
-                return "Müştərinin ad və soyadını daxil edin";
+                return BonusMessages.CUSTOMER_NAME_NOT_FOUND;
             if (String.IsNullOrEmpty(tCompanyName.Text))
-                return "Obyekt adını daxil edin";
+                return BonusMessages.COMPANY_NAME_NOT_FOUND;
             if (String.IsNullOrEmpty(cmbProccesType.Text))
-                return "Əməliyyat növünü seçin";
+                return BonusMessages.PROCCES_TYPE_NOT_FOUND;
             if (String.IsNullOrEmpty(dateTarix.Text))
-                return "Tarix seçin";
+                return BonusMessages.DATE_NOT_FOUND;
             if (String.IsNullOrEmpty(tTotal.Text))
-                return "Ödəniş məbləğini daxil edin";
+                return BonusMessages.PRICE_NOT_FOUND;
             return null;
+        }
+
+        enum BonusType
+        {
+            [Description("YENİ YAZILMA")]
+            New,
+            [Description("BƏRPA")]
+            Restore,
+            [Description("YENİDƏN YAZMA")]
+            Retry
         }
 
         private void cmbProccesType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbProccesType.Text == "YENİ YAZILMA") { tTotal.EditValue = 20; }
-            if (cmbProccesType.Text == "BƏRPA") { tTotal.EditValue = 15; }
-            if (cmbProccesType.Text == "YENİDƏN YAZMA") { tTotal.EditValue = 10; }
+            if (cmbProccesType.Text == BonusType.New.GetDescription().ToUpper()) { tTotal.EditValue = 20; }
+            if (cmbProccesType.Text == BonusType.Restore.GetDescription().ToUpper()) { tTotal.EditValue = 15; }
+            if (cmbProccesType.Text == BonusType.Retry.GetDescription().ToUpper()) { tTotal.EditValue = 10; }
         }
 
         private void userFooter_Save1_SaveClick(object sender, EventArgs e)
         {
             try
             {
-                if (Operations == "Add")
+                if (Operation == Operation.Add)
                 {
-                    if (Control() != null) { Message(Control(), UserControls.MessageForm.enmType.Error); return; }
+                    if (BonusValidation() != null) { Message(BonusValidation(), UserControls.MessageForm.enmType.Error); return; }
                     Bonus bonus = new Bonus();
                     bonus.CustomerNameSurname = tCustomerName.Text.Trim();
                     bonus.CompanyName = tCompanyName.Text.Trim();
@@ -164,30 +179,30 @@ namespace İNTEKO.Bonnus
                     bonus.LogUpdateDate = null;
                     db.Bonus.Add(bonus);
                     db.SaveChanges();
-                    Message("Uğurlu əməliyyat", UserControls.MessageForm.enmType.Success);
+                    Message(AutoMessage.SuccesfulOperation, UserControls.MessageForm.enmType.Success);
                     Logger.Log(tCompanyName.Text + " obyektinə yeni bonus əlavə edildi");
                     Clear();
                 }
-                else if (Operations == "Payment")
+                else if (Operation == Operation.Payment)
                 {
                     double odenenMebleg = Convert.ToDouble(tTotal.Text.Replace(" AZN", ""));
-                    var control = db.Bonus.Where(x => x.Id == BonusID).FirstOrDefault();
+                    Bonus control = db.Bonus.FirstOrDefault(x => x.Id == BonusID);
                     control.Status = true;
                     control.PaymentPaid = odenenMebleg;
                     control.LogUpdateDate = DateTime.Now;
                     control.Comment = tComment.Text;
                     db.SaveChanges();
-                    Message("Uğurlu ödəniş", UserControls.MessageForm.enmType.Success);
-                    Logger.Log(tCompanyName.Text + " obyektinin bonusunun ödənişini etdi");
+                    Message(AutoMessage.SuccesfulPayment, UserControls.MessageForm.enmType.Success);
+                    Logger.Log(tCompanyName.Text + " bonusunun ödənişini etdi");
                     Close();
                 }
-                else if (Operations == "Show")
+                else if (Operation == Operation.Show)
                 {
                     Close();
                 }
-                else if (Operations == "Edit")
+                else if (Operation == Operation.Edit)
                 {
-                    var control = db.Bonus.Where(x => x.Id == BonusID).FirstOrDefault();
+                    Bonus control = db.Bonus.FirstOrDefault(x => x.Id == BonusID);
                     control.CustomerNameSurname = tCustomerName.Text.Trim();
                     control.CompanyName = tCompanyName.Text.Trim();
                     control.Voen = tVOEN.Text.Trim();
@@ -197,8 +212,8 @@ namespace İNTEKO.Bonnus
                     control.Payment_Amount = Convert.ToDouble(tTotal.EditValue);
                     control.Comment = tComment.Text;
                     db.SaveChanges();
-                    Message("Uğurlu əməliyyat", UserControls.MessageForm.enmType.Success);
-                    Logger.Log(tCompanyName.Text + " obyektinin bonusunda düzəliş edildi");
+                    Message(AutoMessage.SuccesfulPayment, UserControls.MessageForm.enmType.Success);
+                    Logger.Log(tCompanyName.Text + " bonusunda düzəliş edildi");
                     Close();
                 }
             }

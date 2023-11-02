@@ -122,6 +122,11 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="Payments" EntitySet="Payments" />
     </AssociationSet>
+    <EntitySet Name="Archive_Customers" EntityType="IntekodbModel.Archive_Customers" />
+    <AssociationSet Name="FK_Archive_Customers_Customer" Association="IntekodbModel.FK_Archive_Customers_Customer">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Archive_Customers" EntitySet="Archive_Customers" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Category">
     <Key>
@@ -200,7 +205,7 @@
     <Property Name="QaimeNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PaymentTotal" Type="Double" />
     <Property Name="PaymentPaid" Type="Double" />
-    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
     <Property Name="Avans" Type="Double" />
     <Property Name="PaymentTypeID" Type="Int32" />
     <Property Name="CustomerID" Type="Int32" />
@@ -234,7 +239,7 @@
     <Property Name="TotalPaid" Type="Double" />
     <Property Name="Date" Type="DateTime" Precision="0" />
     <Property Name="Comment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="LogDate" Type="DateTime" Precision="0" />
+    <Property Name="LogDate" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Category" Relationship="IntekodbModel.FK_Expenses_Category" FromRole="Expenses" ToRole="Category" />
     <NavigationProperty Name="PaymentType" Relationship="IntekodbModel.FK_Expenses_PaymentType" FromRole="Expenses" ToRole="PaymentType" />
     <Property Name="Status" Type="Boolean" />
@@ -287,7 +292,7 @@
     <Property Name="Month" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Name="OldTarif" Type="Double" />
     <Property Name="NewTarif" Type="Double" />
-    <Property Name="Tarix" Type="DateTime" Precision="0" />
+    <Property Name="Tarix" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Customers" Relationship="IntekodbModel.FK_Tarifler_Customer" FromRole="Tarifler" ToRole="Customers" />
     <Property Name="EditDate" Type="DateTime" Precision="0" />
   </EntityType>
@@ -368,8 +373,8 @@
     <Property Name="Payment_Amount" Type="Double" />
     <Property Name="PaymentPaid" Type="Double" />
     <Property Name="Status" Type="Boolean" />
-    <Property Name="LogDate" Type="DateTime" Precision="0" />
-    <Property Name="LogUpdateDate" Type="DateTime" Precision="0" />
+    <Property Name="LogDate" Type="DateTime" Precision="3" />
+    <Property Name="LogUpdateDate" Type="DateTime" Precision="3" />
     <Property Name="Comment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="UserID" Type="Int32" />
     <NavigationProperty Name="Users" Relationship="IntekodbModel.FK_Bonus_ToTable" FromRole="Bonus" ToRole="Users" />
@@ -476,7 +481,7 @@
     <Property Name="FileExtensions" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
     <Property Name="ContractData" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="UserID" Type="Int32" />
-    <Property Name="LogDate" Type="DateTime" Precision="0" />
+    <Property Name="LogDate" Type="DateTime" Precision="3" />
     <Property Name="TypeofCompany" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="GuessLocation" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Area" Relationship="IntekodbModel.FK_Customers_Area" FromRole="Customers" ToRole="Area" />
@@ -488,6 +493,8 @@
     <NavigationProperty Name="PaymentHistory" Relationship="IntekodbModel.FK_PaymentHistory_Customer" FromRole="Customers" ToRole="PaymentHistory" />
     <NavigationProperty Name="Tarifler" Relationship="IntekodbModel.FK_Tarifler_Customer" FromRole="Customers" ToRole="Tarifler" />
     <NavigationProperty Name="Payments" Relationship="IntekodbModel.FK_Payments_Customer" FromRole="Customers" ToRole="Payments" />
+    <Property Name="IsDeleted" Type="Boolean" />
+    <NavigationProperty Name="Archive_Customers" Relationship="IntekodbModel.FK_Archive_Customers_Customer" FromRole="Customers" ToRole="Archive_Customers" />
   </EntityType>
   <Association Name="FK_Customers_Area">
     <End Type="IntekodbModel.Area" Role="Area" Multiplicity="0..1" />
@@ -666,6 +673,28 @@
       </Principal>
       <Dependent Role="Payments">
         <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Archive_Customers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="CustomerID" Type="Int32" />
+    <Property Name="DeletedDate" Type="DateTime" Precision="0" />
+    <Property Name="Username" Type="Int32" />
+    <NavigationProperty Name="Customers" Relationship="IntekodbModel.FK_Archive_Customers_Customer" FromRole="Archive_Customers" ToRole="Customers" />
+  </EntityType>
+  <Association Name="FK_Archive_Customers_Customer">
+    <End Type="IntekodbModel.Customers" Role="Customers" Multiplicity="0..1" />
+    <End Type="IntekodbModel.Archive_Customers" Role="Archive_Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Archive_Customers">
+        <PropertyRef Name="CustomerID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

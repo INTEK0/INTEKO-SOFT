@@ -93,19 +93,7 @@ namespace İNTEKO
 
         private void gridView1_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
         {
-            //if (e.Column.FieldName == "Ay") // Ay isimlerini göstermek istediğiniz sütunun adını kullanın
-            //{
-            //    if (e.Value != null)
-            //    {
-            //        Month ayEnumValue;
-            //        if (Enum.TryParse(e.Value.ToString(), out ayEnumValue))
-            //        {
-            //            // Enum değerini ay ismine dönüştürün
-            //            string ayIsim = ayEnumValue.ToString();
-            //            e.DisplayText = ayIsim;
-            //        }
-            //    }
-            //}
+
         }
 
         private void button1_Click(object sender, EventArgs e)

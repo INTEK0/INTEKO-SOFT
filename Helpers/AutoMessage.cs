@@ -10,5 +10,7 @@
         public static readonly string InvalidPasswordMessage = "Xətalı şifrə";
         public static readonly string ExcelExportSuccesfulyMessage = "Excel ixracı uğurla başa çatdı";
         public static readonly string NetworkErrorMessage = "İnternet bağlantınız yoxdur";
+        public static readonly string SuccesfulOperation = "Uğurlu əməliyyat";
+        public static readonly string SuccesfulPayment = "Uğurlu ödəniş";
     }
 }

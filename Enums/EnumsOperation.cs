@@ -7,17 +7,17 @@ namespace İNTEKO.Enums
         public enum Month
         {
             Yanvar = 1,
-            Fevral = 2,
-            Mart = 3,
-            Aprel = 4,
-            May = 5,
-            İyun = 6,
-            İyul = 7,
-            Avqust = 8,
-            Sentyabr = 9,
-            Oktyabr = 10,
-            Noyabr = 11,
-            Dekabr = 12
+            Fevral,
+            Mart,
+            Aprel,
+            May,
+            İyun,
+            İyul,
+            Avqust,
+            Sentyabr,
+            Oktyabr,
+            Noyabr,
+            Dekabr
         }
 
         public enum Operation
@@ -35,6 +35,10 @@ namespace İNTEKO.Enums
             Active,
             [Description("Deaktiv")]
             Deactive,
+            [Description("Ödənilib")]
+            Paid,
+            [Description("Ödənilməyib")]
+            NotPaid,
         }
 
         public enum Roles

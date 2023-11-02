@@ -204,6 +204,7 @@
     <EntitySetMapping Name="Customers">
       <EntityTypeMapping TypeName="IntekodbModel.Customers">
         <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="GuessLocation" ColumnName="GuessLocation" />
           <ScalarProperty Name="TypeofCompany" ColumnName="TypeofCompany" />
           <ScalarProperty Name="LogDate" ColumnName="LogDate" />
@@ -268,6 +269,16 @@
           <ScalarProperty Name="OdenecekMebleg" ColumnName="OdenecekMebleg" />
           <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
           <ScalarProperty Name="QaimeNo" ColumnName="QaimeNo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Archive_Customers">
+      <EntityTypeMapping TypeName="IntekodbModel.Archive_Customers">
+        <MappingFragment StoreEntitySet="Archive_Customers">
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

@@ -414,12 +414,12 @@ namespace İNTEKO
 
         private void lXercOdenilen_Click(object sender, EventArgs e)
         {
-            FormHelpers.GridViewContainsLoad("Status", "Ödənilib", gridExpenses);
+            FormHelpers.GridViewContainsLoad("Status", StatusType.Paid.GetDescription(), gridExpenses);
         }
 
         private void lXercBorc_Click(object sender, EventArgs e)
         {
-            FormHelpers.GridViewContainsLoad("Status", "Ödənilməyib", gridExpenses);
+            FormHelpers.GridViewContainsLoad("Status", StatusType.NotPaid.GetDescription(), gridExpenses);
         }
 
         private void baddExpenses_Click(object sender, EventArgs e)
@@ -452,7 +452,7 @@ namespace İNTEKO
                         x.PaymentType,
                         x.TotalPaid,
                         x.Users,
-                        Status = x.Status.Value ? "Ödənilib" : "Ödənilməyib",
+                        Status = x.Status.Value ? StatusType.Paid.GetDescription() : StatusType.NotPaid.GetDescription(),
                         x.Category
                     }).
                     OrderByDescending(x => x.Id).ToList();
@@ -522,14 +522,7 @@ namespace İNTEKO
 
         private void gridExpenses_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
         {
-            //if (e.Column == colExpensesStatus)
-            //{
-            //    if (e.Value != null || e.DisplayText != "")
-            //    {
-            //        if ((bool)e.Value) { e.DisplayText = "Ödənilib"; }
-            //        else { e.DisplayText = "Ödənilməyib"; }
-            //    }
-            //}
+
         }
 
         private void gridExpenses_DoubleClick(object sender, EventArgs e)
@@ -546,14 +539,14 @@ namespace İNTEKO
             if (look.Status == true)
             {
                 expenses = new fExpenses(Operation.Show);
-                expenses.ID = look.Id;
+                expenses.expensesID = look.Id;
                 if (expenses.ShowDialog() == DialogResult.OK)
                     ExpensesTotal();
             }
             else
             {
                 expenses = new fExpenses(Operation.Payment);
-                expenses.ID = look.Id;
+                expenses.expensesID = look.Id;
                 if (expenses.ShowDialog() == DialogResult.OK)
                     ExpensesTotal();
             }
@@ -565,7 +558,7 @@ namespace İNTEKO
             var ExtID = Intekodb.Expenses.FirstOrDefault(x => x.Id == GridID);
 
             fExpenses ex = new fExpenses(Operation.Edit);
-            ex.ID = GridID;
+            ex.expensesID = GridID;
             if (ex.ShowDialog() == DialogResult.OK)
                 ExpensesTotal();
         }
@@ -578,8 +571,7 @@ namespace İNTEKO
 
         private void bNewBonus_Click(object sender, EventArgs e)
         {
-            fNewBonus bonus = new fNewBonus();
-            bonus.Operations = "Add";
+            fNewBonus bonus = new fNewBonus(Operation.Add);
             bonus.ShowDialog();
             BonusGridFill();
         }
@@ -599,7 +591,7 @@ namespace İNTEKO
                     x.Date,
                     x.Payment_Amount,
                     x.PaymentPaid,
-                    Status =  x.Status.Value ? "Ödənilib":"Ödənilməyib",
+                    Status =  x.Status.Value ? StatusType.Paid.GetDescription() : StatusType.NotPaid.GetDescription(),
                     x.Comment,
                     x.Users
                 }).OrderBy(x => x.Id).ToList();
@@ -622,26 +614,26 @@ namespace İNTEKO
 
         private void TotalBonusOdenilen_Click(object sender, EventArgs e)
         {
-            FormHelpers.GridViewContainsLoad("Status", "Ödənilib", gridBonus);
+            FormHelpers.GridViewContainsLoad("Status", StatusType.Paid.GetDescription(), gridBonus);
         }
 
         private void TotalBonusBorc_Click(object sender, EventArgs e)
         {
-            FormHelpers.GridViewContainsLoad("Status", "Ödənilməyib", gridBonus);
+            FormHelpers.GridViewContainsLoad("Status", StatusType.NotPaid.GetDescription(), gridBonus);
         }
 
         private void gridBonus_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
         {
-            FormHelpers.GridViewStatusDisplayColor(colBStatus, "Ödənilib", "Ödənilməyib", e, gridBonus);
+            FormHelpers.GridViewStatusDisplayColor(colBStatus, StatusType.Paid.GetDescription(), StatusType.NotPaid.GetDescription(), e, gridBonus);
         }
 
         private void gridBonus_DoubleClick(object sender, EventArgs e)
         {
-            fNewBonus bonus = new fNewBonus();
+            fNewBonus bonus;
             var db = new IntekodbEntities();
-            if (gridBonus.GetFocusedRow() == null)
+            if (gridBonus.GetFocusedRow() is null)
             {
-                Message("Seçim edilmədi", UserControls.MessageForm.enmType.Info);
+                Message(AutoMessage.NoSelection, UserControls.MessageForm.enmType.Info);
                 return;
             }
 
@@ -649,13 +641,13 @@ namespace İNTEKO
             Bonus look = db.Bonus.FirstOrDefault(x => x.Id == id);
             if (look.Status == true)
             {
-                bonus.Operations = "Show";
+                bonus = new fNewBonus(Operation.Show);
                 bonus.BonusID = look.Id;
                 bonus.ShowDialog();
             }
             else
             {
-                bonus.Operations = "Payment";
+                bonus = new fNewBonus(Operation.Payment);
                 bonus.BonusID = look.Id;
                 bonus.ShowDialog();
             }
@@ -728,9 +720,8 @@ namespace İNTEKO
                 return;
             }
 
-            fNewBonus bonus = new fNewBonus();
+            fNewBonus bonus = new fNewBonus(Operation.Edit);
             bonus.BonusID = BonusID.Id;
-            bonus.Operations = "Edit";
             bonus.ShowDialog();
             BonusGridFill();
         }

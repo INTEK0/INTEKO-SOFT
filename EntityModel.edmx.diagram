@@ -47,6 +47,8 @@
         <AssociationConnector Association="IntekodbModel.FK_PaymentHistory_Payment" />
         <AssociationConnector Association="IntekodbModel.FK_Payments_PaymentType" />
         <AssociationConnector Association="IntekodbModel.FK_Payments_Users" />
+        <EntityTypeShape EntityType="IntekodbModel.Archive_Customers" Width="1.5" PointX="4.625" PointY="7.125" />
+        <AssociationConnector Association="IntekodbModel.FK_Archive_Customers_Customer" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

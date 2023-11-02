@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraEditors;
+using İNTEKO.Helpers;
 using İNTEKO.Tools;
 using System;
 using System.Collections.Generic;
@@ -98,7 +99,7 @@ namespace İNTEKO.DetailForm
         {
             if (gridContract.GetFocusedRow() == null)
             {
-                Message("Seçim edilmədi", UserControls.MessageForm.enmType.Info);
+                Message(AutoMessage.NoSelection, UserControls.MessageForm.enmType.Info);
                 return;
             }
             int id = Convert.ToInt32(gridContract.GetFocusedRowCellValue("Id").ToString());
@@ -147,7 +148,7 @@ namespace İNTEKO.DetailForm
         {
             if (gridContract.GetFocusedRow() == null)
             {
-                Message("Seçim edilmədi", UserControls.MessageForm.enmType.Info);
+                Message(AutoMessage.NoSelection, UserControls.MessageForm.enmType.Info);
                 return;
             }
             using (var db = new IntekodbEntities())
