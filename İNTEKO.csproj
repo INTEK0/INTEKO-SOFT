@@ -115,9 +115,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Archive_Customers.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Area.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>

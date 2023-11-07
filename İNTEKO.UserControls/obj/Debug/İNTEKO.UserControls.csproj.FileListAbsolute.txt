@@ -50,3 +50,4 @@ D:\Hasan\PROJECTS\İNTEKO\İNTEKO.UserControls\bin\Debug\ja\DevExpress.Pdf.v20.1
 D:\Hasan\PROJECTS\İNTEKO\İNTEKO.UserControls\bin\Debug\ru\DevExpress.Pdf.v20.1.Core.resources.dll
 D:\Hasan\PROJECTS\İNTEKO\İNTEKO.UserControls\obj\Debug\İNTEKO.UserControls.csproj.CopyComplete
 D:\Hasan\PROJECTS\İNTEKO\İNTEKO.UserControls\obj\Debug\İNTEKO.UserControls.userFooter_Save.resources
+D:\Hasan\PROJECTS\İNTEKO\İNTEKO.UserControls\obj\Debug\İNTEKO.UserControls.csproj.AssemblyReference.cache

@@ -1,12 +1,5 @@
 ﻿using DevExpress.XtraEditors;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Configuration;
@@ -14,7 +7,7 @@ using İNTEKO.UserControls;
 
 namespace INTEKO.DB
 {
-    public partial class fConnection : DevExpress.XtraEditors.XtraForm
+    public partial class fConnection : XtraForm
     {
         SqlConnectionStringBuilder connectionStringBuilder = new SqlConnectionStringBuilder();
 
@@ -73,7 +66,8 @@ namespace INTEKO.DB
                 ConnectionStringInfo.Set(connectionStringBuilder.ConnectionString);
 
                 Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                config.ConnectionStrings.ConnectionStrings["IntekodbEntities"].ConnectionString = "metadata=res://*/EntityModel.csdl|res://*/EntityModel.ssdl|res://*/EntityModel.msl;provider=System.Data.SqlClient;provider connection string=\"" + connectionStringBuilder.ConnectionString.Replace("Data Source", "Server").Replace("Initial Catalog", "Database") + ";MultipleActiveResultSets=True;App=EntityFramework\"";
+                config.ConnectionStrings.ConnectionStrings["IntekodbEntities"].ConnectionString = "metadata=res://*/EntityModel.csdl|res://*/EntityModel.ssdl|res://*/EntityModel.msl;provider=System.Data.SqlClient;provider connection string=\"" + 
+                    connectionStringBuilder.ConnectionString.Replace("Data Source", "Server").Replace("Initial Catalog", "Database") + ";MultipleActiveResultSets=True;App=EntityFramework\"";
 
                 config.Save(ConfigurationSaveMode.Modified);
                 ConfigurationManager.RefreshSection("IntekodbEntities");

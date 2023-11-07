@@ -1,6 +1,5 @@
 ﻿using DevExpress.Export;
 using DevExpress.XtraEditors;
-using DevExpress.XtraGrid;
 using DevExpress.XtraPrinting;
 using İNTEKO.Bonnus;
 using İNTEKO.Comments;
@@ -14,13 +13,10 @@ using İNTEKO.Pay;
 using İNTEKO.Setting;
 using İNTEKO.Tools;
 using İNTEKO.User;
-using OfficeOpenXml;
-using OfficeOpenXml.Table;
 using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -266,24 +262,12 @@ namespace İNTEKO
             if (gridCustomers.RowCount == 0) { Message(AutoMessage.NotFoundData, UserControls.MessageForm.enmType.Info); return; }
 
             GridCustomerColumnsVisibleSort(true);
+            GridViewDataSource.CusromerFullData(gridControlCustomers);
 
-            SaveFileDialog save = new SaveFileDialog();
-            save.Filter = "Excel faylı|*.xlsx";
-            save.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            save.OverwritePrompt = true; //varsa soruşmadan üstünə yazması üçün false olaraq qalmalıdır
-            save.FileName = "Müştəri siyahısı" + "_" + DateTime.Now.ToShortDateString() + ".xlsx";
-            if (save.ShowDialog() == DialogResult.OK)
-            {
-                GridViewDataSource.CusromerFullData(gridControlCustomers);
-                string fileName = save.FileName;
-                gridCustomers.ExportToXlsx(fileName, new XlsxExportOptionsEx
-                {
-                    ExportType = ExportType.WYSIWYG
-                });
-            }
+            FormHelpers.ExportExcelGridData("Müştəri siyahısı", gridCustomers);
+
             GridCustomerColumnsVisibleSort(false);
         }
-
         private void bNewCustomers_Click(object sender, EventArgs e)
         {
             fNewCustomer f = new fNewCustomer(Operation.Add);
@@ -494,14 +478,7 @@ namespace İNTEKO
 
         private void bExpensesExport_Click(object sender, EventArgs e)
         {
-            if (gridExpenses.RowCount is 0) return;
-            SaveFileDialog save = new SaveFileDialog();
-            save.Filter = "Excel faylı|*.xlsx";
-            save.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            save.OverwritePrompt = true; //varsa soruşmadan üstünə yazması üçün false olaraq qalmalıdır
-            save.FileName = "Xərclər" + "_" + DateTime.Now.ToShortDateString() + ".xlsx";
-            if (save.ShowDialog() is DialogResult.OK)
-                gridExpenses.ExportToXlsx(save.FileName);
+            FormHelpers.ExportExcelGridData("Xərclər", gridExpenses);
         }
 
         private void gridExpenses_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
@@ -517,7 +494,11 @@ namespace İNTEKO
 
         private void gridExpenses_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
         {
-            FormHelpers.GridViewStatusDisplayColor(colExpensesStatus, "Ödənilib", "Ödənilməyib", e, gridExpenses);
+            FormHelpers.GridViewStatusDisplayColor(colExpensesStatus,
+                StatusType.Paid.GetDescription(),
+                StatusType.NotPaid.GetDescription(),
+                e,
+                gridExpenses);
         }
 
         private void gridExpenses_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
@@ -591,7 +572,7 @@ namespace İNTEKO
                     x.Date,
                     x.Payment_Amount,
                     x.PaymentPaid,
-                    Status =  x.Status.Value ? StatusType.Paid.GetDescription() : StatusType.NotPaid.GetDescription(),
+                    Status = x.Status.Value ? StatusType.Paid.GetDescription() : StatusType.NotPaid.GetDescription(),
                     x.Comment,
                     x.Users
                 }).OrderBy(x => x.Id).ToList();
@@ -687,14 +668,7 @@ namespace İNTEKO
 
         private void bBonusExport_Click(object sender, EventArgs e)
         {
-            if (gridBonus.RowCount == 0) { Message(AutoMessage.NotFoundData, UserControls.MessageForm.enmType.Info); return; }
-            SaveFileDialog save = new SaveFileDialog();
-            save.Filter = "Excel faylı|*.xlsx";
-            save.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            save.OverwritePrompt = true; //varsa soruşmadan üstünə yazması üçün false olaraq qalmalıdır
-            save.FileName = "Ödənişlər" + "_" + DateTime.Now.ToShortDateString() + ".xlsx";
-            if (save.ShowDialog() == DialogResult.OK)
-                gridBonus.ExportToXlsx(save.FileName);
+            FormHelpers.ExportExcelGridData("Ödənişlər", gridBonus);
         }
 
         private void gridBonus_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
@@ -731,8 +705,6 @@ namespace İNTEKO
 
 
         #region Ödenişler
-
-        Customers Customerid;
 
         public void PaymentsGridFill()
         {
@@ -808,7 +780,7 @@ namespace İNTEKO
 
         private void gridPayments_DoubleClick(object sender, EventArgs e)
         {
-            fPay pay = new fPay();
+            fPay pay;
 
             var db = new IntekodbEntities();
             if (gridPayments.GetFocusedRow() == null)
@@ -821,25 +793,27 @@ namespace İNTEKO
             Payments look = db.Payments.FirstOrDefault(x => x.Id == id);
             if (look.Status == true)
             {
-                pay.Operations = "Show";
+                pay = new fPay(Operation.Show);
                 pay.PaymentID = look.Id;
                 pay.CustomerID = look.CustomerID;
                 pay.ShowDialog();
             }
             else
             {
-                pay.Operations = "Payment";
+                pay = new fPay(Operation.Payment);
                 pay.PaymentID = look.Id;
                 pay.CustomerID = look.CustomerID;
                 pay.ShowDialog();
             }
             PaymentsGridFill();
-            gridPayments.RefreshData();
         }
 
         private void gridPayments_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
         {
-            FormHelpers.GridViewStatusDisplayColor(colPStatus, "Ödənilib", "Ödənilməyib", e, gridPayments);
+            FormHelpers.GridViewStatusDisplayColor(colPStatus,
+                StatusType.Paid.GetDescription(),
+                StatusType.NotPaid.GetDescription(), e,
+                gridPayments);
         }
 
         private void bPaymentLoad_Click(object sender, EventArgs e)
@@ -849,21 +823,8 @@ namespace İNTEKO
 
         private void bPaymentExport_Click(object sender, EventArgs e)
         {
-            if (gridPayments.RowCount == 0) { Message(AutoMessage.NotFoundData, UserControls.MessageForm.enmType.Info); return; }
             GridPaymentsVisibleSort(true);
-            SaveFileDialog save = new SaveFileDialog();
-            save.Filter = "Excel faylı|*.xlsx";
-            save.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            save.OverwritePrompt = true; //varsa soruşmadan üstünə yazması üçün false olaraq qalmalıdır
-            save.FileName = "Ödənişlər" + "_" + DateTime.Now.ToShortDateString() + ".xlsx";
-            if (save.ShowDialog() == DialogResult.OK)
-            {
-                string fileName = save.FileName;
-                gridPayments.ExportToXlsx(fileName, new XlsxExportOptionsEx
-                {
-                    ExportType = ExportType.WYSIWYG
-                });
-            }
+            FormHelpers.ExportExcelGridData("Ödənişlər", gridPayments);
             GridPaymentsVisibleSort(false);
         }
 
@@ -878,8 +839,7 @@ namespace İNTEKO
         private void bNewPay_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-            fPay pay = new fPay();
-            pay.Operations = "Add";
+            fPay pay = new fPay(Operation.Add);
             pay.ShowDialog();
             PaymentsGridFill();
             Cursor.Current = Cursors.Default;
@@ -894,20 +854,19 @@ namespace İNTEKO
         private void lPaymentOdenilen_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-            FormHelpers.GridViewContainsLoad("Status", "Ödənilib", gridPayments);
+            FormHelpers.GridViewContainsLoad("Status", StatusType.Paid.GetDescription(), gridPayments);
             Cursor.Current = Cursors.Default;
         }
 
         private void lPaymentBorc_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-            FormHelpers.GridViewContainsLoad("Status", "Ödənilməyib", gridPayments);
+            FormHelpers.GridViewContainsLoad("Status", StatusType.NotPaid.GetDescription(), gridPayments);
             Cursor.Current = Cursors.Default;
         }
 
         private void PaymentsMenuStrip_Edit_Click(object sender, EventArgs e)
         {
-            var db = new IntekodbEntities();
             int GridID = Convert.ToInt32(gridPayments.GetFocusedRowCellValue("Id").ToString());
             var paymentID = Intekodb.Payments.FirstOrDefault(x => x.Id == GridID);
             if (paymentID.Status == true)
@@ -915,8 +874,7 @@ namespace İNTEKO
                 Message("Ödənilən ödənişdə düzəliş edilə bilməz", UserControls.MessageForm.enmType.Info);
                 return;
             }
-            fPay pay = new fPay();
-            pay.Operations = "Edit";
+            fPay pay = new fPay(Operation.Edit);
             pay.PaymentID = GridID;
             pay.CustomerID = paymentID.CustomerID;
             pay.ShowDialog();
@@ -1259,19 +1217,20 @@ namespace İNTEKO
         {
             if (gridPayments.RowCount == 0) { Message(AutoMessage.NotFoundData, UserControls.MessageForm.enmType.Info); return; }
             GridPaymentsVisibleSort(true);
-            SaveFileDialog save = new SaveFileDialog();
-            save.Filter = "Excel faylı|*.xlsx";
-            save.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            save.OverwritePrompt = true; //varsa soruşmadan üstünə yazması üçün false olaraq qalmalıdır
-            save.FileName = $"{datePStart.Text} - {datePFinish.Text}_Aralıq Hesabatı.xlsx";
-            if (save.ShowDialog() == DialogResult.OK)
-            {
-                string fileName = save.FileName;
-                gridPayments.ExportToXlsx(fileName, new XlsxExportOptionsEx
-                {
-                    ExportType = ExportType.WYSIWYG
-                });
-            }
+            FormHelpers.ExportExcelGridData("Aralıq Hesabatı", gridPayments);
+            //SaveFileDialog save = new SaveFileDialog();
+            //save.Filter = "Excel faylı|*.xlsx";
+            //save.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            //save.OverwritePrompt = true; //varsa soruşmadan üstünə yazması üçün false olaraq qalmalıdır
+            //save.FileName = $"{datePStart.Text} - {datePFinish.Text}_Aralıq Hesabatı.xlsx";
+            //if (save.ShowDialog() == DialogResult.OK)
+            //{
+            //    string fileName = save.FileName;
+            //    gridPayments.ExportToXlsx(fileName, new XlsxExportOptionsEx
+            //    {
+            //        ExportType = ExportType.WYSIWYG
+            //    });
+            //}
             GridPaymentsVisibleSort(false);
         }
     }

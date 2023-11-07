@@ -234,6 +234,8 @@ namespace İNTEKO.PayHistory
             this.bPrint.TabIndex = 19;
             this.bPrint.TabStop = false;
             this.bPrint.Text = "Çap et";
+            this.bPrint.Visible = false;
+            this.bPrint.Click += new System.EventHandler(this.bPrint_Click);
             // 
             // groupControlRight
             // 

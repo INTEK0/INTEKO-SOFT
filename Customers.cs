@@ -21,7 +21,6 @@ namespace İNTEKO
             this.PaymentHistory = new HashSet<PaymentHistory>();
             this.Tarifler = new HashSet<Tarifler>();
             this.Payments = new HashSet<Payments>();
-            this.Archive_Customers = new HashSet<Archive_Customers>();
         }
     
         public int Id { get; set; }
@@ -70,7 +69,5 @@ namespace İNTEKO
         public virtual ICollection<Tarifler> Tarifler { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payments> Payments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Archive_Customers> Archive_Customers { get; set; }
     }
 }

@@ -16,6 +16,7 @@ using İNTEKO.Helpers;
 using İNTEKO.Enums;
 using System.Data.SqlClient;
 using İNTEKO.Messages;
+using static İNTEKO.Enums.EnumsOperation;
 
 namespace İNTEKO.Pay
 {
@@ -27,11 +28,12 @@ namespace İNTEKO.Pay
 
         public int PaymentID { get; set; }
 
-        public string Operations { get; set; }
+        private Operation Operations { get; set; }
 
-        public fPay()
+        public fPay(Operation _operation)
         {
             InitializeComponent();
+            Operations = _operation;
         }
 
         private string ValidationControl()
@@ -79,7 +81,7 @@ namespace İNTEKO.Pay
 
             FormHelpers.ControlLoad(data, cmbPaymentType, displayMember: "PaymentName");
 
-            if (Operations == EnumsOperation.Operation.Show.ToString())
+            if (Operations == EnumsOperation.Operation.Show)
             {
                 //var customer = db.Customers.Where(x => x.Id == CustomerID).FirstOrDefault();
                 var payments = db.Payments.AsNoTracking().FirstOrDefault(x => x.Id == PaymentID);
@@ -107,7 +109,7 @@ namespace İNTEKO.Pay
                 cmbPaymentType.Text = payments.PaymentType.PaymentName;
                 Logger.Log(payments.Customers.CompanyName + " ödənişinə baxış keçirdi");
             }
-            else if (Operations == EnumsOperation.Operation.Payment.ToString())
+            else if (Operations == EnumsOperation.Operation.Payment)
             {
                 //var customer = db.Customers.Where(x => x.Id == CustomerID).FirstOrDefault();
                 var payments = db.Payments.FirstOrDefault(x => x.Id == PaymentID);
@@ -137,7 +139,7 @@ namespace İNTEKO.Pay
                 tComment.Text = payments.Comment;
                 cmbPaymentType.Text = payments.PaymentType.PaymentName;
             }
-            else if (Operations == EnumsOperation.Operation.Edit.ToString())
+            else if (Operations == EnumsOperation.Operation.Edit)
             {
                 var payments = db.Payments.FirstOrDefault(x => x.Id == PaymentID);
                 this.Text = payments.Customers.CompanyName + Proccess.Versiya();
@@ -165,7 +167,7 @@ namespace İNTEKO.Pay
         {
 
             if (ValidationControl() != null) { Message(ValidationControl(), UserControls.MessageForm.enmType.Error); return; }
-            if (Operations == EnumsOperation.Operation.Add.ToString())
+            if (Operations == EnumsOperation.Operation.Add)
             {
                 if (cmbPaymentType.Text == "BANK" && String.IsNullOrWhiteSpace(tQaimeNo.Text))
                 {
@@ -191,7 +193,7 @@ namespace İNTEKO.Pay
                 Message(PaymentMessage.PAYMENT_ADDED, UserControls.MessageForm.enmType.Success);
                 Logger.Log(tCustomerName.Text + " ödənişi yaradıldı");
             }
-            else if (Operations == EnumsOperation.Operation.Edit.ToString())
+            else if (Operations == EnumsOperation.Operation.Edit)
             {
                 var payments = db.Payments.FirstOrDefault(x => x.Id == PaymentID);
                 payments.CustomerID = CustomerID;
@@ -215,7 +217,7 @@ namespace İNTEKO.Pay
                 Message(AutoMessage.EditSaveChange, UserControls.MessageForm.enmType.Success);
                 Logger.Log(payments.Customers.CompanyName + " düzəliş edildi");
             }
-            else if (Operations == EnumsOperation.Operation.Payment.ToString())
+            else if (Operations == EnumsOperation.Operation.Payment)
             {
                 if (tTotal.Text.Replace("AZN", "") == 0.ToString()) { return; }
                 var payments = db.Payments.Where(x => x.Id == PaymentID).FirstOrDefault();
@@ -249,7 +251,7 @@ namespace İNTEKO.Pay
                 Message(PaymentMessage.PAYMENT_COMPLETED, UserControls.MessageForm.enmType.Success);
                 Logger.Log(payments.Customers.CompanyName + " ödənişi edildi");
             }
-            else if (Operations == EnumsOperation.Operation.Show.ToString())
+            else if (Operations == EnumsOperation.Operation.Show)
             {
                 Close();
             }

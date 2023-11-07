@@ -69,5 +69,9 @@ namespace İNTEKO.PayHistory
                 gridHistory.RefreshData();
             }
         }
+
+        private void bPrint_Click(object sender, EventArgs e)
+        {
+        }
     }
 }

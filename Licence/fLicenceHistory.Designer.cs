@@ -216,7 +216,7 @@ namespace İNTEKO.Licence
             this.bPrint.TabIndex = 19;
             this.bPrint.TabStop = false;
             this.bPrint.Text = "Çap et";
-            this.bPrint.Visible = false;
+            this.bPrint.Click += new System.EventHandler(this.bPrint_Click);
             // 
             // gridLicence
             // 
@@ -252,7 +252,7 @@ namespace İNTEKO.Licence
             this.colCompany.Name = "colCompany";
             this.colCompany.Visible = true;
             this.colCompany.VisibleIndex = 0;
-            this.colCompany.Width = 437;
+            this.colCompany.Width = 414;
             // 
             // gridColumn2
             // 
@@ -270,7 +270,7 @@ namespace İNTEKO.Licence
             this.colDescription.OptionsColumn.AllowEdit = false;
             this.colDescription.Visible = true;
             this.colDescription.VisibleIndex = 1;
-            this.colDescription.Width = 215;
+            this.colDescription.Width = 220;
             // 
             // colTarix
             // 
@@ -304,7 +304,7 @@ namespace İNTEKO.Licence
             this.colUser.OptionsColumn.AllowEdit = false;
             this.colUser.Visible = true;
             this.colUser.VisibleIndex = 2;
-            this.colUser.Width = 394;
+            this.colUser.Width = 412;
             // 
             // gridColumn1
             // 

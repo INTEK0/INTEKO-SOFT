@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraEditors;
+using İNTEKO.Helpers;
 using İNTEKO.Tools;
 using System;
 using System.Collections.Generic;
@@ -65,6 +66,11 @@ namespace İNTEKO.Licence
                 gridControlLicence.DataSource = dateSearch.OrderByDescending(x => x.LicenceID).ToList();
                 gridLicence.RefreshData();
             }
+        }
+
+        private void bPrint_Click(object sender, EventArgs e)
+        {
+            FormHelpers.ExportExcelGridData("Lisenziya keçmişi", gridLicence);
         }
     }
 }

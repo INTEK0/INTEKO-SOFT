@@ -1,6 +1,9 @@
-﻿using DevExpress.XtraGrid;
+﻿using DevExpress.Export;
+using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraPrinting;
+using İNTEKO.Tools;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -90,6 +93,29 @@ namespace İNTEKO.Helpers
             MessageBoxManager.Register();
             MessageBox.Show(_message, _title, _button, _icon);
             MessageBoxManager.Unregister();
+        }
+
+        public static void ExportExcelGridData(string filename, GridView gridView)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            if (gridView.RowCount is 0)
+            {
+                ShowMessage.Message(AutoMessage.NotFoundData,UserControls.MessageForm.enmType.Info);
+                return;
+            }
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.Filter = "Excel faylı|*.xlsx";
+            saveFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            saveFile.OverwritePrompt = true; //varsa soruşmadan üstünə yazması üçün false olaraq qalmalıdır
+            saveFile.FileName = filename + "_" + DateTime.Now.ToShortDateString() + ".xlsx";
+            if (saveFile.ShowDialog() == DialogResult.OK)
+            {
+                gridView.ExportToXlsx(saveFile.FileName, new XlsxExportOptionsEx
+                {
+                    ExportType = ExportType.WYSIWYG
+                });
+            }
+            Cursor.Current = Cursors.Default;
         }
     }
 }

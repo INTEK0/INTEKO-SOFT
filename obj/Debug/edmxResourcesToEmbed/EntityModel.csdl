@@ -122,11 +122,6 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="Payments" EntitySet="Payments" />
     </AssociationSet>
-    <EntitySet Name="Archive_Customers" EntityType="IntekodbModel.Archive_Customers" />
-    <AssociationSet Name="FK_Archive_Customers_Customer" Association="IntekodbModel.FK_Archive_Customers_Customer">
-      <End Role="Customers" EntitySet="Customers" />
-      <End Role="Archive_Customers" EntitySet="Archive_Customers" />
-    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Category">
     <Key>
@@ -494,7 +489,6 @@
     <NavigationProperty Name="Tarifler" Relationship="IntekodbModel.FK_Tarifler_Customer" FromRole="Customers" ToRole="Tarifler" />
     <NavigationProperty Name="Payments" Relationship="IntekodbModel.FK_Payments_Customer" FromRole="Customers" ToRole="Payments" />
     <Property Name="IsDeleted" Type="Boolean" />
-    <NavigationProperty Name="Archive_Customers" Relationship="IntekodbModel.FK_Archive_Customers_Customer" FromRole="Customers" ToRole="Archive_Customers" />
   </EntityType>
   <Association Name="FK_Customers_Area">
     <End Type="IntekodbModel.Area" Role="Area" Multiplicity="0..1" />
@@ -673,28 +667,6 @@
       </Principal>
       <Dependent Role="Payments">
         <PropertyRef Name="UserID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="Archive_Customers">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="CustomerID" Type="Int32" />
-    <Property Name="DeletedDate" Type="DateTime" Precision="0" />
-    <Property Name="Username" Type="Int32" />
-    <NavigationProperty Name="Customers" Relationship="IntekodbModel.FK_Archive_Customers_Customer" FromRole="Archive_Customers" ToRole="Customers" />
-  </EntityType>
-  <Association Name="FK_Archive_Customers_Customer">
-    <End Type="IntekodbModel.Customers" Role="Customers" Multiplicity="0..1" />
-    <End Type="IntekodbModel.Archive_Customers" Role="Archive_Customers" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Customers">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Archive_Customers">
-        <PropertyRef Name="CustomerID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

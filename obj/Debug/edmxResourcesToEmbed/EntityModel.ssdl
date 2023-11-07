@@ -1,14 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="IntekodbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="Archive_Customers">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CustomerID" Type="int" />
-    <Property Name="DeletedDate" Type="date" />
-    <Property Name="Username" Type="int" />
-  </EntityType>
   <EntityType Name="Area">
     <Key>
       <PropertyRef Name="Id" />
@@ -260,18 +251,6 @@
     <Property Name="UserRoleID" Type="int" />
     <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
-  <Association Name="FK_Archive_Customers_Customer">
-    <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
-    <End Role="Archive_Customers" Type="Self.Archive_Customers" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Customers">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Archive_Customers">
-        <PropertyRef Name="CustomerID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Area_City">
     <End Role="City" Type="Self.City" Multiplicity="0..1" />
     <End Role="Area" Type="Self.Area" Multiplicity="*" />
@@ -538,7 +517,6 @@
   </Association>
   <Function Name="ExpensesProcNo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="IntekodbModelStoreContainer">
-    <EntitySet Name="Archive_Customers" EntityType="Self.Archive_Customers" Schema="dbo" Table="Archive.Customers" store:Type="Tables" />
     <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Bonus" EntityType="Self.Bonus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BonusFiles" EntityType="Self.BonusFiles" Schema="dbo" store:Type="Tables" />
@@ -559,10 +537,6 @@
     <EntitySet Name="Tarifler" EntityType="Self.Tarifler" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Archive_Customers_Customer" Association="Self.FK_Archive_Customers_Customer">
-      <End Role="Customers" EntitySet="Customers" />
-      <End Role="Archive_Customers" EntitySet="Archive_Customers" />
-    </AssociationSet>
     <AssociationSet Name="FK_Area_City" Association="Self.FK_Area_City">
       <End Role="City" EntitySet="City" />
       <End Role="Area" EntitySet="Area" />

@@ -1045,12 +1045,12 @@ namespace İNTEKO.DetailForm
             this.bExport.AppearanceHovered.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(131)))), ((int)(((byte)(131)))));
             this.bExport.AppearanceHovered.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(131)))), ((int)(((byte)(131)))));
             this.bExport.AppearanceHovered.Options.UseBackColor = true;
-            this.bExport.Location = new System.Drawing.Point(642, 526);
+            this.bExport.Location = new System.Drawing.Point(797, 527);
             this.bExport.LookAndFeel.SkinName = "Office 2019 White";
             this.bExport.LookAndFeel.UseDefaultLookAndFeel = false;
             this.bExport.Name = "bExport";
             this.bExport.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
-            this.bExport.Size = new System.Drawing.Size(148, 99);
+            this.bExport.Size = new System.Drawing.Size(130, 79);
             this.bExport.TabIndex = 10;
             this.bExport.TabStop = false;
             this.bExport.Text = "Export";

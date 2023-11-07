@@ -273,15 +273,5 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Archive_Customers">
-      <EntityTypeMapping TypeName="IntekodbModel.Archive_Customers">
-        <MappingFragment StoreEntitySet="Archive_Customers">
-          <ScalarProperty Name="Username" ColumnName="Username" />
-          <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
-          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

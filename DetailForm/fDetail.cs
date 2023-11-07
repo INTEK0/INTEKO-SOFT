@@ -142,25 +142,22 @@ namespace İNTEKO.DetailForm
             }
             else
             {
-                using (SqlConnection con = new SqlConnection(db.Database.Connection.ConnectionString))
-                {
-                    string query = "SELECT ContractData,FileExtensions,ContractFileName FROM Customers WHERE Id=@id";
-                    SqlCommand cmd = new SqlCommand(query, con);
-                    cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
-                    con.Open();
-                    var reader = cmd.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        var name = reader["ContractFileName"].ToString();
-                        var data = (byte[])reader["ContractData"];
-                        var extn = reader["FileExtensions"].ToString();
+                var result = db.Customers.Where(x => x.Id == id).
+                                         Select(x => new
+                                         {
+                                             x.Id,
+                                             x.ContractData,
+                                             x.FileExtensions,
+                                             x.ContractFileName
+                                         }).FirstOrDefault();
 
-                        var newFileName = name.Replace(extn, DateTime.Now.ToString("ddMMyyyyhhmmss")) + extn;
-                        File.WriteAllBytes(Application.StartupPath + "\\temp\\" + newFileName, data);
-                        //File.WriteAllBytes(newFileName, data);
-                        Process.Start(Application.StartupPath + "\\temp\\" + newFileName);
-                    }
-                }
+                byte[] data = result.ContractData;
+                string extn = result.FileExtensions.ToString();
+                string name = result.ContractFileName.ToString();
+                string filename = name.Replace(extn, DateTime.Now.ToString("ddMMyyyyhhmmss"));
+                File.WriteAllBytes($"{Application.StartupPath}\\temp\\{name}", data);
+
+                Process.Start($"{Application.StartupPath}\\temp\\{name}");
             }
         }
 
@@ -384,7 +381,7 @@ namespace İNTEKO.DetailForm
             using (Stream requestStream = request.GetRequestStream())
                 requestStream.Write(fileContents, 0, fileContents.Length);
 
-            var updateCustomer = db.Customers.Where(x => x.Id == Customerid.Id).FirstOrDefault();
+            var updateCustomer = db.Customers.FirstOrDefault(x => x.Id == Customerid.Id);
             updateCustomer.LicenceStatus = false;
             LicenceHistory history = new LicenceHistory();
             history.CustomerID = Customerid.Id;
@@ -473,11 +470,11 @@ namespace İNTEKO.DetailForm
                 Message(CustomerMessages.LICENCE_KEY_NULL, UserControls.MessageForm.enmType.Info);
                 return;
             }
-            MposStatusControl(Customerid);
+            MposStatusControl();
             Cursor.Current = Cursors.Default;
         }
 
-        private void MposStatusControl(Customers customer)
+        private void MposStatusControl()
         {
             if (!Proccess.IsInternetAvailable()) { return; }
 
@@ -584,14 +581,21 @@ namespace İNTEKO.DetailForm
 
         private void bDelete_Click(object sender, EventArgs e)
         {
-            Customers data = db.Customers.First(x=> x.Id == CustomerID);
-            data.IsDeleted = true;
-            Archive_Customers archive = new Archive_Customers();
-            archive.CustomerID = CustomerID;
-            archive.DeletedDate = DateTime.Now;
-            archive.Username = Properties.Settings.Default.UserID;
-            db.Archive_Customers.Add(archive);
+            DeleteCustomer();
+        }
+
+        private void DeleteCustomer()
+        {
+            var tarifCount = db.Tarifler.Where(x => x.CustomerID == CustomerID).ToList();
+            db.Tarifler.RemoveRange(tarifCount);
+
+            Customers deleteCustomer = db.Customers.FirstOrDefault(x => x.Id == CustomerID);
+            db.Customers.Remove(deleteCustomer);
+
             db.SaveChanges();
+            Message($@"{tNameSurname.Text} müştərisi silindi", UserControls.MessageForm.enmType.Success);
+            DialogResult = DialogResult.OK;
+            Close();
         }
     }
 }
